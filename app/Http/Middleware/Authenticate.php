@@ -3,6 +3,9 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class Authenticate extends Middleware
 {
@@ -17,5 +20,33 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             return route('login');
         }
+    }
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string[]  ...$guards
+     * @return mixed
+     *
+     * @throws \Illuminate\Auth\AuthenticationException|ValidationException
+     */
+    public function handle($request, \Closure $next, ...$guards)
+    {
+        if (!is_null(Auth::user()) && !Auth::user()->is_activated) {
+            if (Hash::check('06470996167', Auth::user()->password)) {
+                return redirect()->route('password.request');
+            }
+
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'email' => [trans('auth.activated')],
+            ]);
+        }
+
+        $this->authenticate($request, $guards);
+
+        return $next($request);
     }
 }
