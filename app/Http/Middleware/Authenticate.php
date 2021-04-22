@@ -35,7 +35,7 @@ class Authenticate extends Middleware
     public function handle($request, \Closure $next, ...$guards)
     {
         if (!is_null(Auth::user()) && !Auth::user()->is_activated) {
-            if (Hash::check('06470996167', Auth::user()->password)) {
+            if (Hash::check('default', Auth::user()->password)) {
                 return redirect()->route('password.request');
             }
 
