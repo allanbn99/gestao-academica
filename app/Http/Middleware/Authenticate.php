@@ -36,7 +36,8 @@ class Authenticate extends Middleware
     {
         if (!is_null(Auth::user()) && !Auth::user()->is_activated) {
             if (Hash::check('default', Auth::user()->password)) {
-                return redirect()->route('password.request');
+                Auth::logout();
+                return redirect()->route('password.request')->with('status', trans('auth.passwordDefault'));
             }
 
             Auth::logout();
