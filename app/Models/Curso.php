@@ -10,6 +10,8 @@ class Curso extends Model
     use HasFactory;
 
     protected $fillable = [
-        'disciplina_id'
+        'nome_curso',
+        'carga_horaria',
+        'disciplina_id',
     ];
 }

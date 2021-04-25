@@ -15,7 +15,7 @@ class CreateTipoPerfilsTable extends Migration
     {
         Schema::create('tipo_perfils', function (Blueprint $table) {
             $table->id();
-            $table->string('nome_perfil',45);
+            $table->string('nome_perfil', 45);
             $table->boolean('is_vinculo');
         });
     }

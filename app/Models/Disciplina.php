@@ -10,6 +10,7 @@ class Disciplina extends Model
     use HasFactory;
 
     protected $fillable = [
-        'disciplina_id'
+        'nome_disciplina',
+        'carga_horaria',
     ];
 }

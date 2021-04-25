@@ -12,9 +12,6 @@ class Aluno extends Model
     protected $fillable = [
         'matricula',
         'pessoa_id',
-        'pessoa_tipo_perfil_id',
-        'pessoa_users_id',
         'curso_id',
-        'curso_disciplina_id',
     ];
 }
