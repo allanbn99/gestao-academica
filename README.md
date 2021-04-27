@@ -53,4 +53,3 @@ Após tudo configurado, execute o comando que faz rodar o servidor da aplicaçã
 
 #### Documentação
    - Laravel 8: https://laravel.com/docs/8.x
-   testes
