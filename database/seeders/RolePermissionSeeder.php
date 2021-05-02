@@ -26,6 +26,8 @@ class RolePermissionSeeder extends Seeder
         //Home
         Permission::create(['name' => 'home'])->syncRoles([
             $tecnicoAdministrativo,
+            $coordenador,
+            $professor,
             $aluno,
         ]);
     }
