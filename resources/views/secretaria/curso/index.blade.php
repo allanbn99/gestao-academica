@@ -10,6 +10,15 @@
         </ol>
     </nav>
 
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('status') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
@@ -56,7 +65,7 @@
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a href="#" class="btn btn-primary">Visualizar</a>
                                     <a href="#" class="btn btn-success">Editar</a>
-                                    <a href="#" class="btn btn-danger">Excluir</a>
+                                    <button type="button" class="btn btn-danger deleteModalTarget" data-id="{{ $curso->id }}" data-toggle="modal" data-target="#deleteModal">Excluir</a>
                                 </div>
                             </td>
                         </tr>
@@ -76,6 +85,8 @@
                 <a href="{{ route('home') }}" class="btn btn-primary">Voltar</a>
             </div>
         </div>
+
+        @include('components.modals.delete', ['route' => route('curso.destroy', 'delete-modal')])
     </div>
 </div>
 @endsection
