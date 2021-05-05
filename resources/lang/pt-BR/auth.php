@@ -13,9 +13,8 @@ return [
     |
     */
 
-    'failed' => 'Usuário ou senha inválidos.',
-    'password' => 'Senha incorreta.',
-    'passwordDefault' => 'Por questões de segurança, solicite a troca da senha antes de continuar.',
-    'throttle' => 'Muitas tentativas de acesso. Por favor, tente novamente em :seconds segundos.',
-    'activated' => 'Usuário não está ativado. Favor, verificar com a instituição sua situação.'
+    'failed' => 'Essas credenciais não correspondem aos nossos registros.',
+    'password' => 'A senha fornecida está incorreta.',
+    'throttle' => 'Muitas tentativas de login. Tente novamente em :seconds segundos.',
+
 ];
