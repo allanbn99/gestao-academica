@@ -1,0 +1,123 @@
+*{
+	list-style-type: none;
+}
+
+body{
+	background-color: #e1f5fe;
+}
+
+a{
+	color: #ccc;
+}
+
+a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+
+.sky-container{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+}
+
+.sky-menu-vertical{
+	background-color: #1F2533;
+	width: 15vw;
+	height: 100vh;
+}
+
+.sky-main{
+	width: 85vw;
+	height: 100vh;
+	overflow-x: hidden;
+}
+
+.sky-navigator{
+	padding: 5px;
+}
+
+.sky-navbar-vertical-drop{
+	color: #ccc;
+	padding: 0px;
+}
+
+.sky-navbar-vertical-drop li a{
+	padding: 10px;
+	display: block;
+}
+
+.sky-navbar-vertical-drop li a:hover{
+	background-color: rgba(255,255,255,0.2);
+	border-radius: 5px;
+}
+
+.sky-dropdown{
+	display: none;
+}
+
+.sky-profile{
+	display: block;
+	border-top: 1px solid rgba(255,255,255,0.2);
+	border-bottom: 1px solid rgba(255,255,255,0.2);
+	padding: 10px;
+}
+
+.sky-profile img{
+	width: 60px;
+	border-radius: 50%;
+	border: 2px solid #ef5350;
+	padding: 3px;
+}
+
+.sky-logo{
+	padding: 20px 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.sky-menu-hidden{
+	display: none;
+}
+
+.sky-content{
+	padding: 10px;
+	min-height:100vh;
+}
+
+.sky-footer{
+	bottom: 0px;
+	width: 85vw;
+	max-width: 85vw;
+	background-color: #343a40;
+	padding: 20px;
+}
+
+/*
+|--------------------------------------------------------------
+| Skyline Responsive
+|--------------------------------------------------------------
+*/
+@media only screen and (max-width: 600px) {
+	
+	.sky-menu-hidden{
+		display: block;
+		background-color: #1F2533;
+	}
+	
+	.sky-menu-vertical{
+		display: none;
+		width: 100vw;
+	}
+	
+	.sky-main{
+		width: 100vw;
+		max-width: 100vw;
+	}
+	
+	.sky-footer{
+		width: 100vw;
+		max-width: 100vw;
+	}
+}
