@@ -13,21 +13,21 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-                <h1>Lista de Cursos</h1>
+                <h1>Lista de Funcionarios</h1>
                 <a href="#" class="btn btn-success">Cadastrar Funcionario</a>
             </div>
 
             <div class="mt-2 card">
                 <div class="card-body">
-                    <form method="GET" action="{{ route('curso.index') }}">
+                    <form method="GET" action="{{ route('funcionario.index') }}">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="search_curso">Nome do Funcionario</label>
-                                <input type="text" name="curso" value="{{ request('curso') }}" class="form-control" id="search_curso" placeholder="Pesquisar...">
+                                <input type="text" name="funcionario" value="{{ request('funcionario') }}" class="form-control" id="search_funcionario" placeholder="Pesquisar...">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="search_semestres">Função</label>
-                                <input type="text" name="semestres" value="{{ request('semestres') }}" class="form-control" id="search_semestres" placeholder="Pesquisar...">
+                                <input type="text" name="funcao" value="{{ request('funcao') }}" class="form-control" id="search_funcao" placeholder="Pesquisar...">
                             </div>
                             <div class="col-md-2 d-flex align-items-end">
                                 <button type="submit" class="btn btn-primary mb-3">Pesquisar</button>
