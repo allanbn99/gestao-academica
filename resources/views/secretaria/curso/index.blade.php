@@ -10,15 +10,6 @@
         </ol>
     </nav>
 
-    @if (session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('status') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
@@ -85,8 +76,31 @@
                 <a href="{{ route('home') }}" class="btn btn-primary">Voltar</a>
             </div>
         </div>
-
-        @include('components.modals.delete', ['route' => route('curso.destroy', 'delete-modal')])
     </div>
 </div>
+
+@include('components.modals.delete', ['route' => route('curso.destroy', 'delete-modal')])
+
+@error('error')
+    <div class="toast bg-danger position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-body text-white">
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ $message }}
+        </div>
+    </div>
+@enderror
+
+@if (session('success'))
+    <div class="toast bg-success position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-body text-white">
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session('success') }}
+        </div>
+    </div>
+@endif
+
 @endsection

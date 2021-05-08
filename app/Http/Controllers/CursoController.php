@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Curso;
+use Illuminate\Validation\ValidationException;
+use App\Services\CursoService;
 
 class CursoController extends Controller
 {
+    /**
+     * @var CursoService $cursoService
+     */
+    private $cursoService;
+
+    public function __construct(CursoService $cursoService)
+    {
+        $this->cursoService = $cursoService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,19 +25,15 @@ class CursoController extends Controller
      */
     public function index(Request $request)
     {
-        $cursoSearch     = $request->query('curso');
-        $semestresSearch = $request->query('semestres');
+        $pesquisa = [
+            'nome_curso' => $request->query('curso'),
+            'semestres'  => $request->query('semestres'),
+        ];
 
-        if ($cursoSearch || $semestresSearch) {
-            $cursos = Curso::where('nome_curso', 'LIKE', "%{$cursoSearch}%")
-                        ->where('semestres', 'LIKE', "%{$semestresSearch}%")
-                        ->paginate(10);
-        } else {
-            $cursos = Curso::paginate(10);
-        }
+        $result = $this->cursoService->consultar(10, $pesquisa);
 
         return view('secretaria.curso.index', [
-            'cursos' => $cursos
+            'cursos' => $result
         ]);
     }
 
@@ -88,7 +95,7 @@ class CursoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  mixed  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id, Request $request)
@@ -97,8 +104,14 @@ class CursoController extends Controller
             $id = (int)$request->delete_modal_id;
         }
 
-        Curso::find($id)->delete();
+        try {
+            $this->cursoService->excluir($id);
 
-        return redirect()->back()->with('status', trans('validation.delete-success'));
+        } catch (\Exception $e) {
+            throw ValidationException::withMessages(['error' => [$e->getMessage()]]);
+
+        }
+
+        return redirect()->back()->with('success', trans('validation.delete-success'));
     }
 }
