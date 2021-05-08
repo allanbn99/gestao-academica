@@ -20,10 +20,14 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/Funcionarios', [App\Http\Controllers\FuncionariosController::class, 'index'])->name('Funcionarios');
 // Route::get('/Funcionarios','FuncionariosController@index');
 
-
 Route::prefix('secretaria')
     ->middleware('role:TecnicoAdministrativo')
     ->group(function() {
         Route::resource('curso', App\Http\Controllers\CursoController::class);
+        Route::resource('funcionario', App\Http\Controllers\FuncionarioController::class);
 });
+
+
+
+
 

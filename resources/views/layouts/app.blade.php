@@ -27,9 +27,7 @@
                     {{ config('app.name', 'Laravel') }}
                 </a>
 
-                <a href="{{url('Funcionarios')}}">
-                    Funcionarios
-                </a>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -45,6 +43,7 @@
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('curso.index') }}">Curso</a>
+                                    <a class="dropdown-item" href="{{ route('funcionario.index') }}">Funcionario</a>
                                 </div>
                             </li>
                         @endrole
