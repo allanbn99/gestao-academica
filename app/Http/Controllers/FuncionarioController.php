@@ -11,18 +11,17 @@ class FuncionarioController extends Controller
 {
    public function index(Request $request){
 
+
         $funcionarioSearch =  $request->query('funcionario');
-        $funcao =  $request->query('funcao');
+        $funcaoSearch =  $request->query('funcao');
 
         $funcionarios = DB::table('funcionarios')
             ->join('pessoas','funcionarios.pessoa_id','=','pessoas.id')
             ->join('cargos','funcionarios.cargo_id','=','cargos.id')
             ->select('pessoas.nome as pessoa_nome','cargos.nome_cargo as cargo_nome','funcionarios.id as funcionarioId')
             ->where('nome','LIKE', "%{$funcionarioSearch}%")
-            ->where('nome_cargo','LIKE', "%{$funcao}%")
-            ->get();
-
-
+            ->where('nome_cargo','LIKE', "%{$funcaoSearch}%")
+            ->paginate(10);
 
     return view('secretaria.funcionario.index',['funcionarios'=>$funcionarios]);
    }
@@ -35,6 +34,7 @@ class FuncionarioController extends Controller
     public function create()
     {
         //
+       return view('secretaria.funcionario.cadastro');
     }
 
     /**

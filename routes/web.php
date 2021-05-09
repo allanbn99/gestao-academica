@@ -17,8 +17,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/Funcionarios', [App\Http\Controllers\FuncionariosController::class, 'index'])->name('Funcionarios');
-// Route::get('/Funcionarios','FuncionariosController@index');
+
 
 Route::prefix('secretaria')
     ->middleware('role:TecnicoAdministrativo')

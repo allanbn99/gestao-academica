@@ -14,13 +14,10 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h1>Lista de Funcionarios</h1>
+                <a href="#" class="btn btn-success">Cadastrar sssssssssssss</a>
+            </div>ssssss
 
-                    <a href="{{route('funcionario.create')}}" class="btn btn-success">Cadastrar Funcionario</a>
-
-
-            </div>
-
-            <div class="mt-2 card">
+            <div class="mt-2 carssssd">
                 <div class="card-body">
                     <form method="GET" action="{{ route('funcionario.index') }}">
                         <div class="form-row">
@@ -50,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($funcionarios as $funcionario)
+                    {{--  @forelse ($funcionarios as $funcionario)
                         <tr>
                              <th scope="row">{{ $funcionario->funcionarioId }}</th>
                             <td>{{ $funcionario->pessoa_nome }}</td>
@@ -67,7 +64,7 @@
                         <tr>
                             <td colspan="4" class="text-center">Nenhum registro encontrado</td>
                         </tr>
-                    @endforelse
+                    @endforelse  --}}
                 </tbody>
             </table>
 
