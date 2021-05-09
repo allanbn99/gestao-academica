@@ -9,6 +9,8 @@ class Disciplina extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'nome_disciplina',
         'carga_horaria',

@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('secretaria')
+    ->middleware('role:TecnicoAdministrativo')
+    ->group(function() {
+        Route::resource('curso', App\Http\Controllers\CursoController::class);
+});
