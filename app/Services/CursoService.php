@@ -54,6 +54,28 @@ class CursoService
     }
 
     /**
+     * Editar um curso
+     */
+    public function editar(array $data, int $id)
+    {
+        $validator = Validator::make($data, [
+            'nome_curso' => 'required',
+            'semestres'  => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            throw new InvalidArgumentException($validator->errors());
+        }
+
+        $cursoEdit = $this->curso->find($id);
+
+        $cursoEdit->nome_curso = $data['nome_curso'];
+        $cursoEdit->semestres  = $data['semestres'];
+
+        $cursoEdit->update();
+    }
+
+    /**
      * Exclui um curso
      */
     public function excluir($id)
