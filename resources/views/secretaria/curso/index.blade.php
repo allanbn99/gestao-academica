@@ -54,9 +54,9 @@
                             <td>{{ $curso->semestres }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="#" class="btn btn-primary">Visualizar</a>
+                                    <a href="{{ route('curso.show', $curso->id) }}" class="btn btn-primary">Visualizar</a>
                                     <a href="{{ route('curso.edit', $curso->id) }}" class="btn btn-success">Editar</a>
-                                    <button type="button" class="btn btn-danger deleteModalTarget" data-id="{{ $curso->id }}" data-toggle="modal" data-target="#deleteModal">Excluir</a>
+                                    <button type="button" class="btn btn-danger deleteModalTarget" data-id="{{ $curso->id }}" data-toggle="modal" data-target="#deleteModal">Excluir</button>
                                 </div>
                             </td>
                         </tr>

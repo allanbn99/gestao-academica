@@ -81,7 +81,13 @@ class CursoController extends Controller
      */
     public function show($id)
     {
-        //
+        if (null === Curso::find($id)) {
+            abort(404);
+        }
+
+        return view('secretaria.curso.visualizar', [
+            'curso' => Curso::find($id),
+        ]);
     }
 
     /**
@@ -146,6 +152,6 @@ class CursoController extends Controller
 
         }
 
-        return redirect()->back()->with('success', trans('validation.delete-success'));
+        return redirect()->route('curso.index')->with('success', trans('validation.delete-success'));
     }
 }
