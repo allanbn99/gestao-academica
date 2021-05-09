@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Curso;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Validator;
+use InvalidArgumentException;
 
 class CursoService
 {
@@ -19,12 +21,8 @@ class CursoService
 
     /**
      * Busca no banco registros de curso
-     *
-     * @param int   $paginacao
-     * @param array $pesquisa
-     * @return      LengthAwarePaginator
      */
-    public function consultar(int $paginacao = 10, array $pesquisa = null): LengthAwarePaginator
+    public function consultar(array $pesquisa = null, int $paginacao = 10): LengthAwarePaginator
     {
         if (null === $pesquisa) {
             return $this->curso->paginate($paginacao);
@@ -36,9 +34,27 @@ class CursoService
     }
 
     /**
+     * Criar novo curso
+     */
+    public function criar(array $data)
+    {
+        $validator = Validator::make($data, [
+            'nome_curso' => 'required',
+            'semestres'  => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            throw new InvalidArgumentException($validator->errors());
+        }
+
+        $this->curso->nome_curso = $data['nome_curso'];
+        $this->curso->semestres  = $data['semestres'];
+
+        $this->curso->save();
+    }
+
+    /**
      * Exclui um curso
-     *
-     * @param int $id
      */
     public function excluir($id)
     {

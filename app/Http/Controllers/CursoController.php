@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Services\CursoService;
+use Exception;
 
 class CursoController extends Controller
 {
@@ -30,7 +31,7 @@ class CursoController extends Controller
             'semestres'  => $request->query('semestres'),
         ];
 
-        $result = $this->cursoService->consultar(10, $pesquisa);
+        $result = $this->cursoService->consultar($pesquisa);
 
         return view('secretaria.curso.index', [
             'cursos' => $result
@@ -44,7 +45,7 @@ class CursoController extends Controller
      */
     public function create()
     {
-        //
+        return view('secretaria.curso.cadastrar');
     }
 
     /**
@@ -55,7 +56,20 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only([
+            'nome_curso',
+            'semestres',
+        ]);
+
+        try {
+            $this->cursoService->criar($data);
+
+        } catch (Exception $e) {
+            throw ValidationException::withMessages(json_decode($e->getMessage(), true));
+
+        }
+
+        return redirect()->route('curso.index')->with('success', trans('validation.create-success'));
     }
 
     /**

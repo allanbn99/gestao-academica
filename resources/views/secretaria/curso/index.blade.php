@@ -14,7 +14,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h1>Lista de Cursos</h1>
-                <a href="#" class="btn btn-success">Cadastrar Curso</a>
+                <a href="{{ route('curso.create') }}" class="btn btn-success">Cadastrar Curso</a>
             </div>
 
             <div class="mt-2 card">
