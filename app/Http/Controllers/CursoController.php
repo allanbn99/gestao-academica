@@ -3,10 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use App\Models\Curso;
+use App\Services\CursoService;
+use Exception;
 
 class CursoController extends Controller
 {
+    /**
+     * @var CursoService $cursoService
+     */
+    private $cursoService;
+
+    public function __construct(CursoService $cursoService)
+    {
+        $this->cursoService = $cursoService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,19 +27,15 @@ class CursoController extends Controller
      */
     public function index(Request $request)
     {
-        $cursoSearch     = $request->query('curso');
-        $semestresSearch = $request->query('semestres');
+        $pesquisa = [
+            'nome_curso' => $request->query('curso'),
+            'semestres'  => $request->query('semestres'),
+        ];
 
-        if ($cursoSearch || $semestresSearch) {
-            $cursos = Curso::where('nome_curso', 'LIKE', "%{$cursoSearch}%")
-                        ->where('semestres', 'LIKE', "%{$semestresSearch}%")
-                        ->paginate(10);
-        } else {
-            $cursos = Curso::paginate(10);
-        }
+        $result = $this->cursoService->consultar($pesquisa);
 
         return view('secretaria.curso.index', [
-            'cursos' => $cursos
+            'cursos' => $result
         ]);
     }
 
@@ -37,7 +46,7 @@ class CursoController extends Controller
      */
     public function create()
     {
-        //
+        return view('secretaria.curso.cadastrar');
     }
 
     /**
@@ -48,7 +57,20 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only([
+            'nome_curso',
+            'semestres',
+        ]);
+
+        try {
+            $this->cursoService->criar($data);
+
+        } catch (Exception $e) {
+            throw ValidationException::withMessages(json_decode($e->getMessage(), true));
+
+        }
+
+        return redirect()->route('curso.index')->with('success', trans('validation.create-success'));
     }
 
     /**
@@ -59,7 +81,13 @@ class CursoController extends Controller
      */
     public function show($id)
     {
-        //
+        if (null === Curso::find($id)) {
+            abort(404);
+        }
+
+        return view('secretaria.curso.visualizar', [
+            'curso' => Curso::find($id),
+        ]);
     }
 
     /**
@@ -70,7 +98,13 @@ class CursoController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (null === Curso::find($id)) {
+            abort(404);
+        }
+
+        return view('secretaria.curso.editar', [
+            'curso' => Curso::find($id),
+        ]);
     }
 
     /**
@@ -82,17 +116,42 @@ class CursoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->only([
+            'nome_curso',
+            'semestres',
+        ]);
+
+        try {
+            $this->cursoService->editar($data, $id);
+
+        } catch (\Exception $e) {
+            throw ValidationException::withMessages(json_decode($e->getMessage(), true));
+
+        }
+
+        return redirect()->route('curso.index')->with('success', trans('validation.update-success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  mixed  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        if ('delete-modal' === $id) {
+            $id = (int)$request->delete_modal_id;
+        }
+
+        try {
+            $this->cursoService->excluir($id);
+
+        } catch (\Exception $e) {
+            throw ValidationException::withMessages(['error' => [$e->getMessage()]]);
+
+        }
+
+        return redirect()->route('curso.index')->with('success', trans('validation.delete-success'));
     }
 }

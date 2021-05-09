@@ -14,7 +14,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h1>Lista de Cursos</h1>
-                <a href="#" class="btn btn-success">Cadastrar Curso</a>
+                <a href="{{ route('curso.create') }}" class="btn btn-success">Cadastrar Curso</a>
             </div>
 
             <div class="mt-2 card">
@@ -54,9 +54,9 @@
                             <td>{{ $curso->semestres }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="#" class="btn btn-primary">Visualizar</a>
-                                    <a href="#" class="btn btn-success">Editar</a>
-                                    <a href="#" class="btn btn-danger">Excluir</a>
+                                    <a href="{{ route('curso.show', $curso->id) }}" class="btn btn-primary">Visualizar</a>
+                                    <a href="{{ route('curso.edit', $curso->id) }}" class="btn btn-success">Editar</a>
+                                    <button type="button" class="btn btn-danger deleteModalTarget" data-id="{{ $curso->id }}" data-toggle="modal" data-target="#deleteModal">Excluir</button>
                                 </div>
                             </td>
                         </tr>
@@ -78,4 +78,29 @@
         </div>
     </div>
 </div>
+
+@include('components.modals.delete', ['route' => route('curso.destroy', 'delete-modal')])
+
+@error('error')
+    <div class="toast bg-danger position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-body text-white">
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ $message }}
+        </div>
+    </div>
+@enderror
+
+@if (session('success'))
+    <div class="toast bg-success position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-body text-white">
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session('success') }}
+        </div>
+    </div>
+@endif
+
 @endsection
