@@ -61,7 +61,10 @@
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a  href="{{route('funcionario.show', $funcionario->funcionarioId)}}" class="btn btn-primary">Visualizar</a>
                                     <a href="#" class="btn btn-success">Editar</a>
-                                    <a href="#" class="btn btn-danger">Excluir</a>
+
+                                    <a class="btn btn-danger btn-xs" href="{{ route('funcionario.destroy', $funcionario->funcionarioId) }}" data-method="delete"  >
+                                        Excluir
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -73,11 +76,6 @@
                     @endforelse
                 </tbody>
             </table>
-
-            {{--  <div class="d-flex justify-content-end">
-                {{ $cursos->links() }}
-            </div>  --}}
-
             <div class="mt-4 d-flex justify-content-end">
                 <a href="{{ route('home') }}" class="btn btn-primary">Voltar</a>
             </div>
