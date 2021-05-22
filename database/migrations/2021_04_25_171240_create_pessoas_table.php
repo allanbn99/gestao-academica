@@ -11,6 +11,7 @@ class CreatePessoasTable extends Migration
      *
      * @return void
      */
+    public $timestamps = true;
     public function up()
     {
         Schema::create('pessoas', function (Blueprint $table) {
@@ -32,6 +33,8 @@ class CreatePessoasTable extends Migration
             $table->foreign('tipo_perfil_id')->references('id')->on('tipo_perfils');
             $table->foreign('user_id')->references('id')->on('users');
         });
+
+
     }
 
     /**

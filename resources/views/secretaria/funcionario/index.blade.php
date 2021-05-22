@@ -14,15 +14,12 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h1>Lista de Funcionarios</h1>
-
-                    <a href="{{route('funcionario.create')}}" class="btn btn-success">Cadastrar Funcionario</a>
-
-
+                <a href="{{route('funcionario.create')}}" class="btn btn-success">Cadastrar Funcionario</a>
             </div>
 
             <div class="mt-2 card">
                 <div class="card-body">
-                    <form method="GET" action="{{ route('funcionario.index') }}">
+                    <form method="GET" action="{{route('funcionario.index') }}">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="search_curso">Nome do Funcionario</label>
@@ -51,18 +48,24 @@
                 </thead>
                 <tbody>
                     @forelse ($funcionarios as $funcionario)
+
+                  @if ($funcionario->is_status == 1)
+
+
                         <tr>
                              <th scope="row">{{ $funcionario->funcionarioId }}</th>
                             <td>{{ $funcionario->pessoa_nome }}</td>
                             <td>{{ $funcionario->cargo_nome }}</td>
+
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="#" class="btn btn-primary">Visualizar</a>
+                                    <a  href="{{route('funcionario.show', $funcionario->funcionarioId)}}" class="btn btn-primary">Visualizar</a>
                                     <a href="#" class="btn btn-success">Editar</a>
                                     <a href="#" class="btn btn-danger">Excluir</a>
                                 </div>
                             </td>
                         </tr>
+                       @endif
                     @empty
                         <tr>
                             <td colspan="4" class="text-center">Nenhum registro encontrado</td>
