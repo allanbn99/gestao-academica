@@ -41,6 +41,7 @@
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('curso.index') }}">Curso</a>
+                                    <a class="dropdown-item" href="{{ route('disciplina.index') }}">Disciplina</a>
                                 </div>
                             </li>
                         @endrole

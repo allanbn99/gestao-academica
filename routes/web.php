@@ -21,4 +21,10 @@ Route::prefix('secretaria')
     ->middleware('role:TecnicoAdministrativo')
     ->group(function() {
         Route::resource('curso', App\Http\Controllers\CursoController::class);
+}); 
+
+Route::prefix('secretaria')
+    ->middleware('role:TecnicoAdministrativo')
+    ->group(function() {
+        Route::resource('disciplina', App\Http\Controllers\DisciplinaController::class);
 });
