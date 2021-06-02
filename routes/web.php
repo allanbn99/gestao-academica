@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+require __DIR__.'/panel.php';
+
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/LoginSkyline.css') }}">
-	<link rel="stylesheet" href="{{ asset('awesome/css/all.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
 	<title>Login</title>
 </head>
 <body>
@@ -34,9 +34,6 @@
 				</form>
 			</div>
 			<div class="warnings-login mt-4 mb-4 text-danger">
-                <!-- Session Status -->
-                <x-auth-session-status :status="session('status')" />
-
                 <!-- Validation Errors -->
                 @foreach ($errors->all() as $error)
                     <div class="alert alert-danger">{{ $error }}</div>
