@@ -13,12 +13,12 @@ body{
 }
 
 a{
-	color: #ccc;
+	color: #ccc !important;
 }
 
 a:hover{
-	color: #fff;
-	text-decoration: none;
+	color: #fff !important;
+	text-decoration: none !important;
 }
 
 .sky-container{
