@@ -8,6 +8,11 @@
 	<title>Login</title>
 </head>
 <body class="bg-dark">
+	@if (Auth::check())
+		@php
+			echo redirect()->route('panel.home');
+		@endphp	
+	@endif
 	<div class="sky-container">
 		<div class="sky-login-box">
 			<div class="sky-login-header">

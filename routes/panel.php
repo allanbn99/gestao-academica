@@ -5,7 +5,7 @@
 -----------------------------------------------------------*/
 
 Route::group([
-    'middleware' => [],
+    'middleware' => ['auth'],
     'prefix' => 'painel'
 ], function(){
     Route::get('/', function(){ return view('painel.home'); })->name('panel.home');
