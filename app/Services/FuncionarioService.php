@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Models\Endereco;
 use Illuminate\Http\Request;
-use App\Models\Funcionario;
-use App\Models\funcionarios;
+use App\Models\Funcionarios;
+
 use App\Models\Pessoa;
 use App\Models\User;
 use App\Models\pessoas_endereco;
@@ -15,6 +15,15 @@ use Illuminate\Support\Facades\Hash;
 class FuncionarioService
 {
 
+     /**
+     * @var Funcionarios $curso
+     */
+    private $funcionarios;
+
+    public function __construct(Funcionarios $funcionarios)
+    {
+        $this->funcionarios = $funcionarios;
+    }
     public function criar(Request $request)
     {
         $user = new User;
@@ -89,7 +98,8 @@ class FuncionarioService
 
     public function visualizar($id)
     {
-        $pessoas_enderecos = DB::table('pessoas_enderecos') ->join('funcionarios','funcionarios.pessoa_id','=','pessoas_enderecos.pessoa_id')
+        $funcionarios = DB::table('pessoas_enderecos')
+        ->join('funcionarios','funcionarios.pessoa_id','=','pessoas_enderecos.pessoa_id')
         ->join('enderecos','enderecos.id','=','pessoas_enderecos.endereco_id')
         ->join('cargos','cargos.id','=','funcionarios.cargo_id')
         ->join('pessoas','pessoas.id','=','pessoas_enderecos.pessoa_id')
@@ -97,7 +107,17 @@ class FuncionarioService
         ->where('funcionarios.id','=', $id)
         ->get();
 
-         return $pessoas_enderecos;
+
+         return $funcionarios;
+    }
+
+    public function excluir($id)
+    {
+        if (null === $this->funcionarios->find($id)) {
+            throw new \InvalidArgumentException("Não foi possível apagar este registro");
+        }
+
+        $this->funcionarios->find($id)->delete();
     }
 
 }

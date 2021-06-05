@@ -49,7 +49,7 @@
                 <tbody>
                     @forelse ($funcionarios as $funcionario)
 
-                  @if ($funcionario->is_status == 1)
+
 
 
                         <tr>
@@ -60,15 +60,14 @@
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a  href="{{route('funcionario.show', $funcionario->funcionarioId)}}" class="btn btn-primary">Visualizar</a>
-                                    <a href="#" class="btn btn-success">Editar</a>
+                                    <a href="{{route('funcionario.edit', $funcionario->funcionarioId)}}"class="btn btn-success">Editar</a>
 
-                                    <a class="btn btn-danger btn-xs" href="{{ route('funcionario.destroy', $funcionario->funcionarioId) }}" data-method="delete"  >
-                                        Excluir
-                                    </a>
+                                    <button type="button" class="btn btn-danger deleteModalTarget" data-id="{{ $funcionario->funcionarioId }}" data-toggle="modal" data-target="#deleteModal">Excluir</button>
+
                                 </div>
                             </td>
                         </tr>
-                       @endif
+
                     @empty
                         <tr>
                             <td colspan="4" class="text-center">Nenhum registro encontrado</td>
@@ -82,4 +81,31 @@
         </div>
     </div>
 </div>
+
+@include('components.modals.delete', ['route' => route('funcionario.destroy', 'delete-modal')])
+
+@error('error')
+    <div class="toast bg-danger position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-body text-white">
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ $message }}
+        </div>
+    </div>
+@enderror
+
+@if (session('success'))
+    <div class="toast bg-success position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-body text-white">
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session('success') }}
+        </div>
+    </div>
+@endif
+
 @endsection
+
+

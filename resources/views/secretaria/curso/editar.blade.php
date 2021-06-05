@@ -17,7 +17,7 @@
                 <h1>{{ $curso->nome_curso }} - Editar Curso</h1>
             </div>
 
-            <form class="mt-2" action="{{ route('curso.update', $curso->id) }}" method="POST">
+            <form class="mt-2" action="{{route('curso.update', $curso->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="form-row">
