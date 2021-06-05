@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -19,75 +16,111 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+        @if (!isset($noSidebar))
+            <div class="sky-menu-vertical">
+                <a href="{{ route('home') }}" class="sky-logo">
+                    <img src="{{ asset('img/logo-smp-white.png') }}" width="100">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                <a href="#" class="sky-profile">
+                    <div class="d-flex flex-row">
+                        <div class="mr-1 d-flex justify-content-center align-items-center"><img src="{{ asset('img/user1.jpg') }}" class="img-fluid"></div>
+                        <div class="ml-1 d-flex align-items-center">
+                            <div>Skyline be wolf<br><small class="text-muted">Técnico Administrativo</small></div>
+                        </div>
+                    </div>
+                </a>
+
+                <nav class="sky-navigator">
+                    <ul class="sky-navbar-vertical-drop">
                         @role('TecnicoAdministrativo')
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Secretaria
+                            <li>
+                                <a href="#" onclick="toggleMenu('drop1', 'caret1')">
+                                    <i class="fas fa-user-graduate"></i> Secretaria <span class="float-right d-inline-block"><i id="caret1" class="fas fa-caret-down"></i></span>
                                 </a>
-
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('curso.index') }}">Curso</a>
-                                </div>
+                                <ul class="sky-dropdown" id="drop1">
+                                    <!--<li>
+                                        <a href="#" onclick="toggleMenu('drop2', 'caret2')">
+                                            <i class="fas fa-user-graduate"></i> Cadastrar <span class="float-right d-inline-block"><i id="caret2" class="fas fa-caret-down"></i></span>
+                                        </a>
+                                        <ul class="sky-dropdown" id="drop2">
+                                            <li>
+                                                <a href="#"><small><i class="fas fa-dot-circle"></i></small> Sub-Item 1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Sub-Item 2</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Sub-Item 3</a>
+                                            </li>
+                                        </ul>
+                                    </li>-->
+                                    <li>
+                                        <a href="{{ route('curso.index') }}">Curso</a>
+                                    </li>
+                                </ul>
                             </li>
                         @endrole
+                    <!--
+                        <li>
+                            <a href="#"><i class="fas fa-address-book"></i> Manter Aula</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-calendar"></i> Cronograma de aulas</a>
+                        </li>
+                    -->
                     </ul>
+                </nav>
 
+            </div>
+
+            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+                <div class="container-fluid ">
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> Sair
+                            </a>
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->email }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
+            </nav>
 
-        <main class="py-4">
+            <div class="sky-main">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb sky-breadcrumb pl-4">
+                        @yield('breadcrumb')
+                    </ol>
+                </nav>
+
+                @yield('content')
+            </div>
+        @else
             @yield('content')
-        </main>
+        @endif
     </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script>
+		function toggleMenu(idElement, idIcon){
+			let menu = document.getElementById(idElement);
+			menu.style.display = menu.style.display == 'block' ? 'none': 'block';
+            if(idIcon != null){
+                document.getElementById(idIcon).classList.toggle('fa-caret-up');
+            }
+		}
+	</script>
+
+    @stack('scripts')
 </body>
 </html>

@@ -1,16 +1,14 @@
 @extends('layouts.app')
 
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+    <li class="breadcrumb-item">Secretaria</li>
+    <li class="breadcrumb-item active" aria-current="page">Curso</li>
+@endsection
+
 @section('content')
 <div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item">Secretaria</li>
-            <li class="breadcrumb-item active" aria-current="page">Curso</li>
-        </ol>
-    </nav>
-
-    <div class="card">
+    <div class="sky-box">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h1>Lista de Cursos</h1>
