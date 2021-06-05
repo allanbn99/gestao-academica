@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,5 @@ Route::prefix('secretaria')
     ->middleware('role:TecnicoAdministrativo')
     ->group(function() {
         Route::resource('curso', App\Http\Controllers\CursoController::class);
-});
+        Route::resource('disciplina', App\Http\Controllers\DisciplinaController::class);
+}); 
