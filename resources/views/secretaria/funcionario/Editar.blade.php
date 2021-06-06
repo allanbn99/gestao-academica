@@ -14,153 +14,185 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1>Dados Pessoais</h1>
+                    <h1 class="  left1">Dados Pessoais</h1>
                 </div>
-{{-- $funcionario->id  --}}
-                <form class="mt-2"  action="{{route('funcionario.update',$funcionario_pessoa[0]->id)}}"  method="POST">
+                {{-- $funcionario->id  --}}
+                <form class="mt-2"  method="POST" action="{{route('funcionario.update',$funcionario_pessoa[0]->id)}}">
                     @csrf
-
-                    @method('PUT');
-
+                    @method('PUT')
                     <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <div class="col-12 row ">
-                                {{-- //nome --}}
- {{-- $funcionario->nome --}}
+                        <div class="form-group row col-12">
+
+                            {{-- //nome --}}
+                            <div class="col-4">
+                                <label >Nome</label>
 
                                 <input type="text" name="nome" value="{{$funcionario_pessoa[0]->nome}}"
-                                    class="col-4 mg form-control @error('nome') is-invalid @enderror" id="inputSemestres"
+                                    class="col-12  form-control @error('nome') is-invalid @enderror" id="nome"
                                     placeholder="Nome">
 
-                                    {{-- @error('nome')
+                                  @error('nome')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror --}}
+                                    @enderror
+                            </div>
 
-                                {{-- //matricula --}}
+                            {{-- //matricula --}}
+                            <div class="col-4">
+                            <label  >Matrícula</label>
                                 <input type="text" name="matricula" value="{{$funcionario->matricula}}"
-                                class="col-3 mg form-control @error('matricula') is-invalid @enderror" id="inputSemestres"
+                                class="col-12    form-control @error('matricula') is-invalid @enderror" id="matricula"
                                 placeholder="Matricula">
 
-                                    {{-- @error('matricula')
+                                    @error('matricula')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror --}}
+                                    @enderror
+                            </div>
 
-                                {{-- //cpf --}}
-                                <input      type="text" name="cpf" value="{{$funcionario_pessoa[0]->cpf}}"
-                                class="col-4 mg form-control @error('cpf') is-invalid @enderror" id="cpf"
-                                placeholder="CPF">
+                            {{-- //cpf --}}
+                             <div class="col-4">
+                                    <label  >CPF</label>
+                                    <input      type="text" name="cpf" value="{{$funcionario_pessoa[0]->cpf}}"
+                                    class="col-12    form-control @error('cpf') is-invalid @enderror" id="cpf"
+                                    placeholder="CPF">
 
-                                 {{-- @error('cpf')
-                                     <span class="invalid-feedback" role="alert">
-                                         <strong>{{ $message }}</strong>
-                                     </span>
-                                 @enderror --}}
+                                     @error('cpf')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                              </div>
 
-                                {{-- //rg --}}
-                                <input      type="text" name="rg" value="{{$funcionario_pessoa[0]->rg}}"
-                                class="col-4 mg form-control @error('cpf') is-invalid @enderror" id="rg"
-                                placeholder="RG">
+                              {{-- //rg --}}
+                              <div class="col-4">
+                                <label  >RG</label>
+                                    <input      type="text" name="rg" value="{{$funcionario_pessoa[0]->rg}}"
+                                    class="col-12    form-control @error('cpf') is-invalid @enderror" id="rg"
+                                    placeholder="RG">
 
-                                 {{-- @error('rg')
-                                     <span class="invalid-feedback" role="alert">
-                                         <strong>{{ $message }}</strong>
-                                     </span>
-                                 @enderror --}}
+                                     @error('rg')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                              </div>
 
-                               {{-- //nome_pai --}}
-                                <input      type="text" name="nome_pai" value="{{$funcionario_pessoa[0]->nome_pai}}"
-                                class="col-3 mg form-control @error('nome_pai') is-invalid @enderror" id="nome_pai"
-                                placeholder="Nome do Pai">
+                             {{--  //nome_pai  --}}
+                               <div class="col-4">
+                                    <label  >Nome do Pai</label>
+                                    <input      type="text" name="nome_pai" value="{{$funcionario_pessoa[0]->nome_pai}}"
+                                    class="col-12    form-control @error('nome_pai') is-invalid @enderror" id="nome_pai"
+                                    placeholder="Nome do Pai">
 
-                                 {{-- @error('nome_pai')
-                                     <span class="invalid-feedback" role="alert">
-                                         <strong>{{ $message }}</strong>
-                                     </span>
-                                 @enderror --}}
+                                    @error('nome_pai')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                               </div>
 
                                 {{-- //nome_mae --}}
-                                <input      type="text" name="nome_mae" value="{{$funcionario_pessoa[0]->nome_mae}}"
-                                class="col-4 mg form-control @error('nome_mae') is-invalid @enderror" id="nome_mae"
-                                placeholder="Nome da Mãe">
+                                <div class="col-4">
+                                    <label  >Nome da Mãe</label>
+                                    <input type="text" name="nome_mae" value="{{$funcionario_pessoa[0]->nome_mae}}"
+                                    class="col-12    form-control @error('nome_mae') is-invalid @enderror" id="nome_mae"
+                                    placeholder="Nome da Mãe">
 
-                                 {{-- @error('nome_mae')
+                                     @error('nome_mae')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                {{-- //telefone --}}
+                                <div class="col-4">
+                                    <label  >Telefone</label>
+                                    <input      type="text" name="telefone" value="{{$funcionario_pessoa[0]->telefone}}"
+                                    class="col-12    form-control @error('telefone') is-invalid @enderror" id="telefone"
+                                    placeholder="Telefone">
+
+                                 @error('telefone')
                                      <span class="invalid-feedback" role="alert">
                                          <strong>{{ $message }}</strong>
                                      </span>
-                                 @enderror --}}
-
-                                  {{-- //telefone --}}
-                                <input      type="text" name="telefone" value="{{$funcionario_pessoa[0]->telefone}}"
-                                class="col-4 mg form-control @error('telefone') is-invalid @enderror" id="telefone"
-                                placeholder="Telefone">
-
-                                 {{-- @error('telefone')
-                                     <span class="invalid-feedback" role="alert">
-                                         <strong>{{ $message }}</strong>
-                                     </span>
-                                 @enderror --}}
+                                 @enderror
+                                </div>
 
                                 {{-- //nacionalidade --}}
-                                <input      type="text" name="nacionalidade" value="{{$funcionario_pessoa[0]->nacionalidade}}"
-                                class="col-3 mg form-control @error('nacionalidade') is-invalid @enderror" id="nacionalidade"
-                                placeholder="Nacionalidade">
+                                <div class="col-4">
+                                    <label  >Nacionalidade</label>
+                                    <input      type="text" name="nacionalidade" value="{{$funcionario_pessoa[0]->nacionalidade}}"
+                                    class="col-12    form-control @error('nacionalidade') is-invalid @enderror" id="nacionalidade"
+                                    placeholder="Nacionalidade">
 
-                                 {{-- @error('nacionalidade')
+                                 @error('nacionalidade')
                                      <span class="invalid-feedback" role="alert">
                                          <strong>{{ $message }}</strong>
                                      </span>
-                                 @enderror --}}
+                                 @enderror
+                                </div>
 
                                  {{-- //naturalidade --}}
-                                <input type="text" name="naturalidade" value="{{$funcionario_pessoa[0]->naturalidade}}"
-                                class="col-4 mg form-control @error('naturalidade') is-invalid @enderror" id="naturalidade"
-                                placeholder="Naturalidade">
+                                 <div class="col-4">
+                                    <label  >Naturalidade</label>
+                                    <input type="text" name="naturalidade" value="{{$funcionario_pessoa[0]->naturalidade}}"
+                                    class="col-12    form-control @error('naturalidade') is-invalid @enderror" id="naturalidade"
+                                    placeholder="Naturalidade">
 
-                                 {{-- @error('naturalidade')
+                                 @error('naturalidade')
                                      <span class="invalid-feedback" role="alert">
                                          <strong>{{ $message }}</strong>
                                      </span>
-                                 @enderror --}}
+                                 @enderror
+                                 </div>
 
-                                  {{-- //titulo_eleito --}}
-                                <input      type="text" name="titulo_eleitor" value="{{$funcionario_pessoa[0]->titulo_eleitor}}"
-                                class="col-4 mg form-control @error('titulo_eleitor') is-invalid @enderror" id="titulo_eleitor"
-                                placeholder="Titulo de Eleitor">
+                                {{-- //titulo_eleito --}}
+                                <div class="col-4">
+                                    <label  >Titulo de Eleitor</label>
+                                    <input      type="text" name="titulo_eleitor" value="{{$funcionario_pessoa[0]->titulo_eleitor}}"
+                                    class="col-12    form-control @error('titulo_eleitor') is-invalid @enderror" id="titulo_eleitor"
+                                    placeholder="Titulo de Eleitor">
 
-                                 {{-- @error('titulo_eleito')
+                                 @error('titulo_eleito')
                                      <span class="invalid-feedback" role="alert">
                                          <strong>{{ $message }}</strong>
                                      </span>
-                                 @enderror --}}
+                                 @enderror
+                                </div>
 
                                 {{-- //reservista --}}
-                                <input type="text" name="reservista" value="{{$funcionario_pessoa[0]->reservista}}"
-                                class="col-3 mg form-control @error('reservista') is-invalid @enderror" id="reservista"
-                                placeholder="Reservista">
+                                <div class="col-4">
+                                    <label  >Reservsta</label>
+                                    <input type="text" name="reservista" value="{{$funcionario_pessoa[0]->reservista}}"
+                                    class="col-12    form-control @error('reservista') is-invalid @enderror" id="reservista"
+                                    placeholder="Reservista">
 
-                                 {{-- @error('reservista')
+                                  @error('reservista')
                                      <span class="invalid-feedback" role="alert">
                                          <strong>{{ $message }}</strong>
                                      </span>
-                                 @enderror --}}
+                                 @enderror
+                                </div>
 
                                 {{-- //carteira_trabalho--}}
-                                <input      type="text" name="carteira_trabalho" value="{{$funcionario_pessoa[0]->carteira_trabalho}}"
-                                class="col-4 mg form-control @error('carteira_trabalho') is-invalid @enderror" id="carteira_trabalho"
-                                placeholder="Carteira">
+                                <div class="col-4">
+                                    <label  >Carteira de Trabalho</label>
+                                    <input      type="text" name="carteira_trabalho" value="{{$funcionario_pessoa[0]->carteira_trabalho}}"
+                                    class="col-12    form-control @error('carteira_trabalho') is-invalid @enderror" id="carteira_trabalho"
+                                    placeholder="Carteira">
 
-                                 {{-- @error('carteira_trabalho')
+                                  @error('carteira_trabalho')
                                      <span class="invalid-feedback" role="alert">
                                          <strong>{{ $message }}</strong>
                                      </span>
-                                 @enderror --}}
-
+                                 @enderror
+                                </div>
                                 {{-- //tipo_perfil_id--}}
-                               {{-- <select name="tipo_perfil_id" id="tipo_perfil_id" class="mg selectOtion form-control col-6">
+                               {{-- <select name="tipo_perfil_id" id="tipo_perfil_id" class="   selectOtion form-control col-6">
                                     @foreach ($tipo_perfils as $tipo_perfil)
                                        <option value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
                                     @endforeach
@@ -172,175 +204,221 @@
                                 </span>
                                 @enderror --}}
 
+
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1 class="  left2">Endereço</h1>
+                        </div>
+
+                        <div class="form-group row col-12">
+                            {{-- //Rua --}}
+                            <div class="col-4">
+                                    <label  >Rua</label>
+
+                                    <input      type="text" name="rua" value="{{$funcionario_enderecos[0]->rua}}"
+                                        class="col-12    form-control @error('rua') is-invalid @enderror" id="inputSemestres"
+                                        placeholder="Rua">
+
+                                @error('rua')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            {{-- //Número --}}
+                        <div class="col-4">
+                            <label  >Número</label>
+                                <input      type="text" name="numero" value="{{$funcionario_enderecos[0]->numero}}"
+                                    class="col-12    form-control @error('numero') is-invalid @enderror" id="inputSemestres"
+                                    placeholder="Número">
+
+                             @error('numero')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                            {{-- //Bairro --}}
+                            <div class="col-4">
+                                <label  >Bairro</label>
+                            <input      type="text" name="bairro" value="{{$funcionario_enderecos[0]->bairro}}"
+                                class="col-12    form-control @error('bairro') is-invalid @enderror" id="inputSemestres"
+                                placeholder="Bairro">
+
+                            @error('bairro')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+
+                            {{-- //Complemento --}}
+                            <div class="col-4">
+                                <label  >Complemento</label>
+                            <input      type="text" name="complemento" value="{{$funcionario_enderecos[0]->complemento}}"
+                                class="col-12    form-control @error('semestres') is-invalid @enderror" id="inputSemestres"
+                                placeholder="Complemento">
+
+                             @error('complemento')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+
+                            {{-- //Cidade --}}
+                            <div class="col-4">
+                                <label  >Cidade</label>
+                            <input      type="text" name="cidade" value="{{$funcionario_enderecos[0]->cidade}}"
+                                class="col-12    form-control @error('cidade') is-invalid @enderror" id="inputSemestres"
+                                placeholder="Cidade">
+
+                             @error('cidade')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+
+                            {{-- //Estado --}}
+                            <div class="col-4">
+                                <label  >Estado</label>
+                            <input      type="text" name="estado" value="{{$funcionario_enderecos[0]->estado}}"
+                                class="col-12    form-control @error('estado') is-invalid @enderror" id="inputSemestres"
+                                placeholder="Estado">
+
+                            @error('estado')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+
+                            <div class="col-6">
+                                <label  >Pais</label>
+                            {{-- //Pais --}}
+                            <input      type="text" name="pais" value="{{$funcionario_enderecos[0]->pais}}"
+                                class="col-12    form-control @error('pais') is-invalid @enderror" id="inputSemestres"
+                                placeholder="Pais">
+
+                             @error('pais')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+                            {{-- //CEP --}}
+                            <div class="col-6">
+                                <label  >CEP</label>
+                            <input      type="text" name="cep" value="{{$funcionario_enderecos[0]->cep}}"
+                                class="col-12    form-control @error('cep') is-invalid @enderror" id="inputSemestres"
+                                placeholder="CEP">
+
+                             @error('cep')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1 class="m-1">Tipo de Perfil</h1>
+                        </div>
+                        <div class="col-12 row">
+                            <div class="col-4">
+                                    <label >Vinculo Empregaticio</label>
+                                    <select  name="cargo_id" id="cargo" class="form-control col-12">
+                                        @foreach ($funcionario_Cargos as $cargo)
+                                            @if ($funcionario->cargo_id ==  $cargo->id)
+                                                <option  value="{{$cargo->id}}">{{$cargo->nome_cargo}}</option>
+                                            @else
+                                                <option value="{{$cargo->id}}">{{$cargo->nome_cargo}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+
+                                @error('funcao')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                           </div>
+
+
+                    {{-- //email --}}
+                    <div class="col-4">
+                        <label >Email</label>
+                                <input      type="text" name="email" value="{{$funcionario_usuarios->email}}"
+                                class="col-12    form-control @error('email') is-invalid @enderror" id="inputSemestres"
+                                placeholder="CEP">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                     </div>
+                            <div class="col-4">
+                                    <label >Tipo Permissão</label>
+                                    <select name="permissao" id="permissao" class="form-control  col-12">
+                                        {{--  <option value="Cuiabá">Cuiabá</option>  --}}
+
+                                      @foreach ($funcionario_roles as $role)
+                                        <option value="{{$role->name}}">{{$role->name}}</option>
+                                        @endforeach
+                                      </select>
+                            </div>
+
+                            <div class="col-4">
+                                <label >Perfil</label>
+                                     <select name="tipo_perfil_id" id="tipo_perfil_id" class="selectOtion form-control col-12">
+                                        @foreach ($funcionario_tipo_perfis as $tipo_perfil)
+                                        @if ($tipo_perfil->id == $funcionario_pessoa[0]->tipo_perfil_id)
+                                           <option selected value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
+
+                                           @else
+                                           <option value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
+                                        @endif
+
+                                        @endforeach
+                                    </select>
+
+                                    @error('tipo_perfil_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+
+                            </div>
+
+                            <div class="col-4">
+                                 <label class="col-12">Ativo</label>
+
+                                @if ($funcionario_usuarios->is_activated == 1 )
+                                    <label class="switch ">
+                                            <input type="checkbox" checked name="is_activated"  id="togBtn">
+                                            <div class="slider round"></div>
+                                    </label>
+
+                                    @else
+                                    <label class="switch ">
+                                        <input type="checkbox"  name="is_activated"  id="togBtn">
+                                        <div class="slider round"></div>
+                                    </label>
+                                @endif
+
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h1>Endereço</h1>
-                        </div>
-
-                        <div class="col-12 row">
-                            {{-- //Rua --}}
-                            <input      type="text" name="rua" value="{{$funcionario_enderecos[0]->rua}}"
-                                class="col-4 mg form-control @error('rua') is-invalid @enderror" id="inputSemestres"
-                                placeholder="Rua">
-
-                            {{-- @error('rua')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                            {{-- //Número --}}
-                            <input      type="text" name="numero" value="{{$funcionario_enderecos[0]->numero}}"
-                                class="col-3 mg form-control @error('numero') is-invalid @enderror" id="inputSemestres"
-                                placeholder="Número">
-
-                            {{-- @error('numero')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                            {{-- //Bairro --}}
-                            <input      type="text" name="bairro" value="{{$funcionario_enderecos[0]->bairro}}"
-                                class="col-4 mg form-control @error('bairro') is-invalid @enderror" id="inputSemestres"
-                                placeholder="Bairro">
-
-                            {{-- @error('bairro')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                            {{-- //Complemento --}}
-                            <input      type="text" name="complemento" value="{{$funcionario_enderecos[0]->complemento}}"
-                                class="col-4 mg form-control @error('semestres') is-invalid @enderror" id="inputSemestres"
-                                placeholder="Complemento">
-
-                            {{-- @error('complemento')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                            {{-- //Cidade --}}
-                            <input      type="text" name="cidade" value="{{$funcionario_enderecos[0]->cidade}}"
-                                class="col-3 mg form-control @error('cidade') is-invalid @enderror" id="inputSemestres"
-                                placeholder="Cidade">
-
-                            {{-- @error('cidade')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                            {{-- //Estado --}}
-                            <input      type="text" name="estado" value="{{$funcionario_enderecos[0]->estado}}"
-                                class="col-4 mg form-control @error('estado') is-invalid @enderror" id="inputSemestres"
-                                placeholder="Estado">
-
-                            {{-- @error('estado')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                            {{-- //Pais --}}
-                            <input      type="text" name="pais" value="{{$funcionario_enderecos[0]->pais}}"
-                                class="col-6 mg form-control @error('pais') is-invalid @enderror" id="inputSemestres"
-                                placeholder="Pais">
-
-                            {{-- @error('pais')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                            {{-- //CEP --}}
-                            <input      type="text" name="cep" value="{{$funcionario_enderecos[0]->cep}}"
-                                class="col-5 mg form-control @error('cep') is-invalid @enderror" id="inputSemestres"
-                                placeholder="CEP">
-
-                            {{-- @error('cep')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h1>Cargo</h1>
-                        </div>
-                        <div class="col-12 row">
-                            <input      type="text" name="email" value="{{$funcionario_usuarios->email}}"
-                            class="col-3 mg form-control @error('email') is-invalid @enderror" id="inputSemestres"
-                            placeholder="E-mail">
-                                {{--  <select name="cargo_id" id="cargo" class="form-control col-6 mg">
-                                    @foreach ($cargos as $cargo)
-                                    <option value="{{$cargo->id}}">{{$cargo->nome_cargo}}</option>
-                                    @endforeach
-                                </select>  --}}
-
-                            {{-- @error('funcao')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
-                            {{--  <h1>Usuário</h1>  --}}
-                        </div>
-                        <div class="col-12 row">
-                            {{-- //Usuario --}}
-                            {{--  <input      type="text" name="usuario" value="{{ old('usuario') }}"
-                                class="col-4 mg form-control @error('usuario') is-invalid @enderror" id="inputSemestres"
-                                placeholder="Usuário">
-
-                            @error('usuario')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror  --}}
-
-                            {{-- //email --}}
-                            <input      type="text" name="email" value="{{$funcionario_usuarios->email}}"
-                                class="col-3 mg form-control @error('email') is-invalid @enderror" id="inputSemestres"
-                                placeholder="E-mail">
-
-                            {{-- @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
-
-                            {{-- //senha --}}
-                            {{--  <input      type="password" name="senha" value="{{ old('senha') }}"
-                                class="col-4 mg form-control @error('senha') is-invalid @enderror" id="inputSemestres"
-                                placeholder="Senha">
-
-                            @error('areaAtuacao')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror  --}}
-
-                            {{--  <select name="permissao" id="permissao" class="form-control mg col-6">
-                                {{--  <option value="Cuiabá">Cuiabá</option>
-
-                                @foreach ($roles as $role)
-                                <option value="{{$role->name}}">{{$role->name}}</option>
-                                @endforeach
-                            </select>  --}}
-                        </div>
                     </div>
-                    <div class="mt-4 d-flex justify-content-end">
+                    <div class="mt-4 d-flex justify-content-end    row">
                         <button type="submit" class="btn btn-success mr-1">Salvar</button>
                         <a href="{{ route('funcionario.index') }}" class="btn btn-primary">Voltar</a>
-                    </div>
+
                 </form>
             </div>
         </div>

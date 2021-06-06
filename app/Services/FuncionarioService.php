@@ -5,9 +5,10 @@ namespace App\Services;
 use App\Models\Endereco;
 use Illuminate\Http\Request;
 use App\Models\Funcionarios;
-
+use Illuminate\Support\Facades\Validator;
 use App\Models\Pessoa;
 use App\Models\User;
+use InvalidArgumentException;
 use App\Models\pessoas_endereco;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -26,10 +27,72 @@ class FuncionarioService
     }
     public function criar(Request $request)
     {
+
+        $data = $request->only([
+            'matricula',
+            'nome',
+            'cpf',
+            'rg',
+            'nome_pai',
+            'nome_mae',
+            'telefone',
+            'nacionalidade',
+            'naturalidade',
+            'titulo_eleitor',
+            'reservista',
+            'carteira_trabalho',
+            'rua',
+            'numero',
+            'bairro',
+            'complemento',
+            'cidade',
+            'estado',
+            'pais',
+            'cep',
+            'email',
+        ]);
+
+        $validator = Validator::make($data, [
+            'matricula'=>'required',
+           'nome' => 'required',
+           'cpf' => 'required',
+            'rg' => 'required',
+            'nome_pai' => 'required',
+            'nome_mae' => 'required',
+            'telefone' => 'required',
+             'nacionalidade' => 'required',
+            'naturalidade' => 'required',
+             'titulo_eleitor' => 'required',
+            'reservista' => 'required',
+             'carteira_trabalho' => 'required',
+            'rua' => 'required',
+            'numero' => 'required',
+            'bairro' => 'required',
+            'complemento' => 'required',
+            'cidade' => 'required',
+            'estado' => 'required',
+            'pais' => 'required',
+            'cep' => 'required',
+            'email' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+
+            throw new InvalidArgumentException($validator->errors());
+
+        }
+
         $user = new User;
         $user->email = $request->email;
         $user->password = Hash::make('default'); //$request->CPF
         $user->assignRole($request->permissao);
+        if($request->is_activated == "on")
+        {
+           $user->is_activated = 1;
+        }else{
+            $user->is_activated = 0;
+        }
+
         $user->save();
         //pegar o id
         $pessoa = new Pessoa;
@@ -74,10 +137,13 @@ class FuncionarioService
 
         $funcionario->save();
 
-        $usuario = new User;
-        $usuario->email =  $request->email;
-        $usuario->password =  $request->password;
-        $usuario->is_activated = 1;
+        // $usuario = new User;
+        // $usuario->email =  $request->email;
+        // // $usuario->password =  $request->password;
+
+
+
+
     }
 
     public function consultar(Request $request)
@@ -96,21 +162,6 @@ class FuncionarioService
             return $funcionarios;
     }
 
-    public function visualizar($id)
-    {
-        $funcionarios = DB::table('pessoas_enderecos')
-        ->join('funcionarios','funcionarios.pessoa_id','=','pessoas_enderecos.pessoa_id')
-        ->join('enderecos','enderecos.id','=','pessoas_enderecos.endereco_id')
-        ->join('cargos','cargos.id','=','funcionarios.cargo_id')
-        ->join('pessoas','pessoas.id','=','pessoas_enderecos.pessoa_id')
-        ->join('users','users.id','=','pessoas.user_id')
-        ->where('funcionarios.id','=', $id)
-        ->get();
-
-
-         return $funcionarios;
-    }
-
     public function excluir($id)
     {
         if (null === $this->funcionarios->find($id)) {
@@ -120,4 +171,110 @@ class FuncionarioService
         $this->funcionarios->find($id)->delete();
     }
 
+    public function update(Request $request,$id)
+    {
+        $data = $request->only([
+            'matricula',
+            'nome',
+            'cpf',
+            'rg',
+            'nome_pai',
+            'nome_mae',
+            'telefone',
+            'nacionalidade',
+            'naturalidade',
+            'titulo_eleitor',
+            'reservista',
+            'carteira_trabalho',
+            'rua',
+            'numero',
+            'bairro',
+            'complemento',
+            'cidade',
+            'estado',
+            'pais',
+            'cep',
+            'email',
+        ]);
+
+        $validator = Validator::make($data, [
+            'matricula'=>'required',
+           'nome' => 'required',
+           'cpf' => 'required',
+            'rg' => 'required',
+            'nome_pai' => 'required',
+            'nome_mae' => 'required',
+            'telefone' => 'required',
+             'nacionalidade' => 'required',
+            'naturalidade' => 'required',
+             'titulo_eleitor' => 'required',
+            'reservista' => 'required',
+             'carteira_trabalho' => 'required',
+            'rua' => 'required',
+            'numero' => 'required',
+            'bairro' => 'required',
+            'complemento' => 'required',
+            'cidade' => 'required',
+            'estado' => 'required',
+            'pais' => 'required',
+            'cep' => 'required',
+            'email' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+
+            throw new InvalidArgumentException($validator->errors());
+
+        }
+        $funcionario = funcionarios::find($request->id);
+
+        funcionarios::Where('pessoa_id','=',$id)->update(['cargo_id'=>$request->cargo_id]);
+
+        $pessoa = Pessoa::find($id);
+        $pessoa->nome = $request->nome  ;
+        $pessoa->cpf = $request->cpf ;
+        $pessoa->rg = $request->rg;
+        $pessoa->nome_pai = $request->nome_pai;
+        $pessoa->nome_mae = $request->nome_mae;
+        $pessoa->telefone = $request->telefone;
+        $pessoa->nacionalidade = $request->nacionalidade;
+        $pessoa->naturalidade = $request->naturalidade;
+        $pessoa->titulo_eleitor = $request->titulo_eleitor;
+        $pessoa->reservista = $request->reservista;
+        $pessoa->carteira_trabalho = $request->carteira_trabalho;
+        $pessoa->tipo_perfil_id = $request->tipo_perfil_id;
+
+       // // $pessoa->celu = $request->telefone;
+        $pessoa->save();
+
+        $pessoa_endereco =  pessoas_endereco::where('pessoa_id','=',$id)->get();
+
+
+        $endereco = Endereco::find($pessoa_endereco[0]->endereco_id);
+        $endereco->rua = $request->rua;
+        $endereco->numero = $request->numero;
+        $endereco->bairro = $request->bairro;
+        $endereco->complemento = $request->complemento;
+        $endereco->cidade = $request->cidade;
+        $endereco->estado = $request->estado;
+        $endereco->pais = $request->pais;
+        $endereco->cep = $request->cep;
+        $endereco->update();
+
+        $user = User::find($pessoa->user_id);
+
+        $user->email = $request->email;
+        $user->password = Hash::make('default'); //$request->CPF
+        $user->assignRole($request->permissao);
+        if($request->is_activated == "on")
+        {
+           $user->is_activated = 1;
+        }else{
+            $user->is_activated = 0;
+        }
+
+        $user->save();
+
+      $user->save();
+    }
 }

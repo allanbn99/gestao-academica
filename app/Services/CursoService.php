@@ -7,6 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;
 
+
 class CursoService
 {
     /**
