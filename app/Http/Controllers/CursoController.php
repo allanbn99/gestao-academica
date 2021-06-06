@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\Curso;
+use App\Models\Disciplina;
 use App\Services\CursoService;
 use Exception;
 
@@ -46,7 +47,9 @@ class CursoController extends Controller
      */
     public function create()
     {
-        return view('secretaria.curso.cadastrar');
+        return view('secretaria.curso.cadastrar', [
+            'disciplinas' => Disciplina::all(),
+        ]);
     }
 
     /**

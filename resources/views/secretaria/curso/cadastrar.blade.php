@@ -41,6 +41,22 @@
                         @enderror
                     </div>
                 </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <strong>Disciplinas Relacionadas</strong>
+                    <button class="btn btn-success btn-sm">Adicionar Disciplina</button>
+                </div>
+
+                @include('components.tables.table', [
+                    'params' => [
+                        'id' => 'disciplinasTable',
+                    ],
+                    'thead' => [
+                        'Id', 'Nome da disciplina', 'Carga Horária'
+                    ],
+                    'tbody' => $disciplinas->toJson(JSON_PRETTY_PRINT),
+                ])
+
                 <div class="mt-4 d-flex justify-content-end">
                     <button type="submit" class="btn btn-success mr-1">Cadastrar</button>
                     <a href="{{ route('curso.index') }}" class="btn btn-primary">Voltar</a>
