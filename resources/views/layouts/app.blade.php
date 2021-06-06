@@ -20,19 +20,21 @@
     <div id="app">
         @if (!isset($noSidebar))
             <div class="sky-menu-vertical">
-                
+
                 <div class="row p-2 d-flex justify-content-center align-items-center">
-                    <div class="col d-flex justify-content-center align-items-center">
-                        <img src="{{ asset('img/logo-smp-white.png') }}" width="100">
-                    </div>
+                    <a href="{{ route("home") }}" class="col d-flex justify-content-center align-items-center">
+                        <img src="{{ asset('img/logo-smp-white.png') }}" width="77">
+                    </a>
                     <button class="btn sky-btn-closemenu float-right mr-3"><i class="fas fa-times text-light"></i></button>
                 </div>
 
                 <a href="#" class="sky-profile">
                     <div class="d-flex flex-row">
-                        <div class="mr-1 d-flex justify-content-center align-items-center"><img src="{{ asset('img/user1.jpg') }}" class="img-fluid"></div>
+                        <div class="mr-1 d-flex justify-content-center align-items-center">
+                            <img src="{{ asset('img/profile-pic.jpg') }}" class="img-fluid">
+                        </div>
                         <div class="ml-1 d-flex align-items-center">
-                            <div>Skyline be wolf<br><small class="text-muted">Técnico Administrativo</small></div>
+                            <div>{{ $info_pessoa->nome }}<br><small class="text-muted">{{ $tipo_perfil->nome_perfil }}</small></div>
                         </div>
                     </div>
                 </a>
@@ -69,7 +71,7 @@
                                                 document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt"></i> Sair
                                 </a>
-    
+
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
