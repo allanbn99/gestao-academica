@@ -20,9 +20,13 @@
     <div id="app">
         @if (!isset($noSidebar))
             <div class="sky-menu-vertical">
-                <a href="{{ route('home') }}" class="sky-logo">
-                    <img src="{{ asset('img/logo-smp-white.png') }}" width="100">
-                </a>
+                
+                <div class="row p-2 d-flex justify-content-center align-items-center">
+                    <div class="col d-flex justify-content-center align-items-center">
+                        <img src="{{ asset('img/logo-smp-white.png') }}" width="100">
+                    </div>
+                    <button class="btn sky-btn-closemenu float-right mr-3"><i class="fas fa-times text-light"></i></button>
+                </div>
 
                 <a href="#" class="sky-profile">
                     <div class="d-flex flex-row">
@@ -41,61 +45,39 @@
                                     <i class="fas fa-user-graduate"></i> Secretaria <span class="float-right d-inline-block"><i id="caret1" class="fas fa-caret-down"></i></span>
                                 </a>
                                 <ul class="sky-dropdown" id="drop1">
-                                    <!--<li>
-                                        <a href="#" onclick="toggleMenu('drop2', 'caret2')">
-                                            <i class="fas fa-user-graduate"></i> Cadastrar <span class="float-right d-inline-block"><i id="caret2" class="fas fa-caret-down"></i></span>
-                                        </a>
-                                        <ul class="sky-dropdown" id="drop2">
-                                            <li>
-                                                <a href="#"><small><i class="fas fa-dot-circle"></i></small> Sub-Item 1</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Sub-Item 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Sub-Item 3</a>
-                                            </li>
-                                        </ul>
-                                    </li>-->
                                     <li>
                                         <a href="{{ route('curso.index') }}">Curso</a>
                                     </li>
                                 </ul>
                             </li>
                         @endrole
-                    <!--
-                        <li>
-                            <a href="#"><i class="fas fa-address-book"></i> Manter Aula</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fas fa-calendar"></i> Cronograma de aulas</a>
-                        </li>
-                    -->
                     </ul>
                 </nav>
 
             </div>
 
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-                <div class="container-fluid ">
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt"></i> Sair
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
             <div class="sky-main">
+
+                <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+                    <div class="container-fluid">
+                        <button class="btn sky-btn-hidden"><i class="fas fa-bars"></i></button>
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt"></i> Sair
+                                </a>
+    
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb sky-breadcrumb pl-4">
                         @yield('breadcrumb')
@@ -112,6 +94,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script>
+        //Troca de lado a seta do menu dropdown e mostra/não mostra o submenu
 		function toggleMenu(idElement, idIcon){
 			let menu = document.getElementById(idElement);
 			menu.style.display = menu.style.display == 'block' ? 'none': 'block';
@@ -119,6 +102,16 @@
                 document.getElementById(idIcon).classList.toggle('fa-caret-up');
             }
 		}
+
+        //Ao clicar no botao faz aparecer o menu
+        document.querySelector('.sky-btn-hidden').addEventListener('click', function(){
+            document.querySelector('.sky-menu-vertical').style.display = 'block';
+        });
+
+        //Ao clicar no botao faz o menu desaparecer
+        document.querySelector('.sky-btn-closemenu').addEventListener('click', function(){
+            document.querySelector('.sky-menu-vertical').style.display = 'none';
+        });
 	</script>
 
     @stack('scripts')
