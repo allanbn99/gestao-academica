@@ -29,12 +29,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $info_pessoa = Pessoa::where('user_id', '=', Auth::user()->id)->first();
-        $tipo_perfil = TipoPerfil::where('id', '=', $info_pessoa->tipo_perfil_id)->first();
-
-        return view('home', [
-            'info_pessoa' => $info_pessoa,
-            'tipo_perfil' => $tipo_perfil,
-        ]);
+        return view('home');
     }
 }

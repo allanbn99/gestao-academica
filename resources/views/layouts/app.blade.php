@@ -34,7 +34,12 @@
                             <img src="{{ asset('img/profile-pic.jpg') }}" class="img-fluid">
                         </div>
                         <div class="ml-1 d-flex align-items-center">
-                            <div>{{ $info_pessoa->nome }}<br><small class="text-muted">{{ $tipo_perfil->nome_perfil }}</small></div>
+                            <div>
+                                {{ auth()->user()->pessoa()->nome ?? 'Anônimo' }}<br>
+                                <small class="text-muted">
+                                    {{ auth()->user()->pessoa()->tipoPerfil()->nome_perfil ?? 'Não Informado' }}
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </a>
