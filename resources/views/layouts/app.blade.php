@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -21,78 +18,117 @@
     <link href="/resources/css/app.css" rel="stylesheet">
 
 </head>
-<body>
+<body class="bg-light">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+        @if (!isset($noSidebar))
+            <div class="sky-menu-vertical">
+
+                <div class="row p-2 d-flex justify-content-center align-items-center">
+                    <a href="{{ route("home") }}" class="col d-flex justify-content-center align-items-center">
+                        <img src="{{ asset('img/logo-smp-white.png') }}" width="77">
+                    </a>
+                    <button class="btn sky-btn-closemenu float-right mr-3"><i class="fas fa-times text-light"></i></button>
+                </div>
+
+                <a href="#" class="sky-profile">
+                    <div class="d-flex flex-row">
+                        <div class="mr-1 d-flex justify-content-center align-items-center">
+                            <img src="{{ asset('img/profile-pic.jpg') }}" class="img-fluid">
+                        </div>
+                        <div class="ml-1 d-flex align-items-center">
+                            <div>
+                                {{ auth()->user()->pessoa()->nome ?? 'Anônimo' }}<br>
+                                <small class="text-muted">
+                                    {{ auth()->user()->pessoa()->tipoPerfil()->nome_perfil ?? 'Não Informado' }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </a>
-
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                
+                <nav class="sky-navigator">
+                    <ul class="sky-navbar-vertical-drop">
                         @role('TecnicoAdministrativo')
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Secretaria
+                            <li>
+                                <a href="#" onclick="toggleMenu('drop1', 'caret1')">
+                                    <i class="fas fa-user-graduate"></i> Secretaria <span class="float-right d-inline-block"><i id="caret1" class="fas fa-caret-down"></i></span>
                                 </a>
-
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('curso.index') }}">Curso</a>
-                                    <a class="dropdown-item" href="{{ route('funcionario.index') }}">Funcionario</a>
-                                </div>
+                                <ul class="sky-dropdown" id="drop1">
+                                    <li>
+                                        <a href="{{ route('curso.index') }}">Curso</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('disciplina.index') }}">Disciplina</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('funcionario.index') }}">Disciplina</a>
+                                    </li>
+                                </ul>
                             </li>
                         @endrole
                     </ul>
+                </nav>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+            </div>
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->email }}
+            <div class="sky-main">
+
+                <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+                    <div class="container-fluid">
+                        <button class="btn sky-btn-hidden"><i class="fas fa-bars"></i></button>
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt"></i> Sair
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                        </ul>
+                    </div>
+                </nav>
 
-        <main class="py-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb sky-breadcrumb pl-4">
+                        @yield('breadcrumb')
+                    </ol>
+                </nav>
+
+                @yield('content')
+            </div>
+        @else
             @yield('content')
-        </main>
+        @endif
     </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script>
+        //Troca de lado a seta do menu dropdown e mostra/não mostra o submenu
+		function toggleMenu(idElement, idIcon){
+			let menu = document.getElementById(idElement);
+			menu.style.display = menu.style.display == 'block' ? 'none': 'block';
+            if(idIcon != null){
+                document.getElementById(idIcon).classList.toggle('fa-caret-up');
+            }
+		}
+
+        //Ao clicar no botao faz aparecer o menu
+        document.querySelector('.sky-btn-hidden').addEventListener('click', function(){
+            document.querySelector('.sky-menu-vertical').style.display = 'block';
+        });
+
+        //Ao clicar no botao faz o menu desaparecer
+        document.querySelector('.sky-btn-closemenu').addEventListener('click', function(){
+            document.querySelector('.sky-menu-vertical').style.display = 'none';
+        });
+	</script>
+
+    @stack('scripts')
 </body>
 </html>
