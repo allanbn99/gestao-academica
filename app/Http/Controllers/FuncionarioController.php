@@ -60,11 +60,14 @@ class FuncionarioController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        try
+        {
             $this->funcionarioService->criar($request);
 
         } catch (\Exception $e)
         {
+
+
             throw ValidationException::withMessages(json_decode($e->getMessage(), true));
 
         }

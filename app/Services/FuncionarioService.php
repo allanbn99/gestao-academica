@@ -55,8 +55,8 @@ class FuncionarioService
         $validator = Validator::make($data, [
             'matricula'=>'required',
            'nome' => 'required',
-           'cpf' => 'required',
-            'rg' => 'required',
+           'cpf' => 'required|cpf',
+            'rg' => 'required|rg',
             'nome_pai' => 'required',
             'nome_mae' => 'required',
             'telefone' => 'required',

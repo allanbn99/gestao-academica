@@ -23,8 +23,8 @@
                         <div class="form-group row col-12">
 
                             {{-- //nome --}}
-                            <div class="col-4">
-                                <label >Nome</label>
+                            <div class="col-9">
+                                <label class="col-form-label"  >Nome</label>
                                     <input type="text" name="nome" value="{{ old('nome') }}"
                                     class="col-12 form-control @error('nome') is-invalid @enderror" id="nome"
                                     placeholder="nome">
@@ -37,8 +37,8 @@
                             </div>
 
                                 {{-- //matricula --}}
-                        <div class="col-4">
-                                <label class="">Matricula</label>
+                        <div class="col-3">
+                                <label class="col-form-label"  class="">Matricula</label>
                                 <input type="text" name="matricula" value="{{ old('matricula') }}"
                                 class="col-12  form-control @error('matricula') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Matricula">
@@ -51,9 +51,9 @@
                          </div>
 
                         {{-- //cpf --}}
-                        <div class="col-4">
-                            <label >CPF</label>
-                                <input type="text" name="cpf" value="{{ old('cpf') }}"
+                        <div class="col-3">
+                            <label class="col-form-label"  >CPF</label>
+                                <input max="11" type="text" name="cpf" value="{{ old('cpf') }}"
                                 class="col-12  form-control @error('cpf') is-invalid @enderror" id="cpf"
                                 placeholder="CPF">
 
@@ -65,8 +65,8 @@
                         </div>
 
                         {{-- //rg --}}
-                        <div class="col-4">
-                            <label >RG</label>
+                        <div class="col-3">
+                            <label class="col-form-label"  >RG</label>
                                 <input type="text" name="rg" value="{{ old('cpf') }}"
                                 class="col-12  form-control @error('cpf') is-invalid @enderror" id="rg"
                                 placeholder="RG">
@@ -79,8 +79,8 @@
                         </div>
 
                         {{-- //nome_pai --}}
-                        <div class="col-4">
-                        <label >Nome do Pai</label>
+                        <div class="col-6">
+                        <label class="col-form-label"  >Nome do Pai</label>
                                 <input type="text" name="nome_pai" value="{{ old('nome_pai') }}"
                                 class="col-12  form-control @error('nome_pai') is-invalid @enderror" id="nome_pai"
                                 placeholder="Nome do Pai">
@@ -93,8 +93,8 @@
                         </div>
 
                         {{-- //nome_mae--}}
-                        <div class="col-4">
-                            <label >Nome da Mãe</label>
+                        <div class="col-6">
+                            <label class="col-form-label"  >Nome da Mãe</label>
                                 <input type="text" name="nome_mae" value="{{ old('nome_mae') }}"
                                 class="col-12  form-control @error('nome_mae') is-invalid @enderror" id="nome_mae"
                                 placeholder="Nome da Mãe">
@@ -107,8 +107,8 @@
                         </div>
 
                         {{-- //telefone --}}
-                        <div class="col-4">
-                            <label class="">Matricula</label>
+                        <div class="col-3">
+                            <label class="col-form-label"  class="">Telefone</label>
                                     <input type="text" name="telefone" value="{{ old('telefone') }}"
                                     class="col-12 form-control @error('telefone') is-invalid @enderror" id="telefone"
                                     placeholder="Telefone">
@@ -121,8 +121,8 @@
                         </div>
 
                                 {{-- //nacionalidade --}}
-                        <div class="col-4">
-                            <label >Nacionalidade</label>
+                        <div class="col-3">
+                            <label class="col-form-label"  >Nacionalidade</label>
                                 <input type="text" name="nacionalidade" value="{{ old('nacionalidade') }}"
                                 class="col-12 form-control @error('nacionalidade') is-invalid @enderror" id="nacionalidade"
                                 placeholder="Nacionalidade">
@@ -134,8 +134,8 @@
                                  @enderror
                         </div>
                         {{-- //naturalidade --}}
-                        <div class="col-4">
-                                <label >Naturalidade</label>
+                        <div class="col-6">
+                                <label class="col-form-label"  >Naturalidade</label>
                                 <input type="text" name="naturalidade" value="{{ old('naturalidade') }}"
                                 class="col-12 form-control @error('naturalidade') is-invalid @enderror" id="naturalidade"
                                 placeholder="Naturalidade">
@@ -148,8 +148,8 @@
                         </div>
 
                     {{-- //titulo_eleito --}}
-                        <div class="col-4">
-                            <label >Titulo de eleitor</label>
+                        <div class="col-6">
+                            <label class="col-form-label"  >Titulo de eleitor</label>
                                 <input type="text" name="titulo_eleitor" value="{{ old('titulo_eleitor') }}"
                                 class="col-12 form-control @error('titulo_eleitor') is-invalid @enderror" id="titulo_eleitor"
                                 placeholder="Titulo de Eleitor">
@@ -162,8 +162,8 @@
                         </div>
 
                         {{-- //reservista --}}
-                        <div class="col-4">
-                            <label >Reservista</label>
+                        <div class="col-6">
+                            <label class="col-form-label"  >Reservista</label>
                                 <input type="text" name="reservista" value="{{ old('reservista') }}"
                                 class="col-12 form-control @error('reservista') is-invalid @enderror" id="reservista"
                                 placeholder="Reservista">
@@ -176,8 +176,8 @@
                         </div>
 
                         {{-- //carteira_trabalho--}}
-                        <div class="col-4">
-                            <label >Carteira de Trabalho</label>
+                        <div class="col-6">
+                            <label class="col-form-label"  >Carteira de Trabalho</label>
                                 <input type="text" name="carteira_trabalho" value="{{ old('carteira_trabalho') }}"
                                 class="col-12 form-control @error('carteira_trabalho') is-invalid @enderror" id="carteira_trabalho"
                                 placeholder="Carteira">
@@ -200,8 +200,8 @@
                         <div class="col-12 row">
 
                         {{-- //Rua --}}
-                        <div class="col-4">
-                            <label >Rua</label>
+                        <div class="col-6">
+                            <label class="col-form-label"  >Rua</label>
                             <input type="text" name="rua" value="{{ old('rua') }}"
                                 class="col-12  form-control @error('rua') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Rua">
@@ -214,8 +214,8 @@
                         </div>
 
                         {{-- //Número --}}
-                        <div class="col-4">
-                            <label >Número</label>
+                        <div class="col-3">
+                            <label class="col-form-label"  >Número</label>
                             <input type="text" name="numero" value="{{ old('numero') }}"
                                 class="col-12  form-control @error('numero') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Número">
@@ -229,8 +229,8 @@
 
 
                         {{-- //Bairro --}}
-                        <div class="col-4">
-                            <label >Bairro</label>
+                        <div class="col-3">
+                            <label class="col-form-label"  >Bairro</label>
                             <input type="text" name="bairro" value="{{ old('bairro') }}"
                                 class="col-12  form-control @error('bairro') is-invalid @enderror" id="bairro"
                                 placeholder="Bairro">
@@ -243,8 +243,8 @@
                         </div>
 
                         {{-- //Complemento --}}
-                        <div class="col-4">
-                            <label >Complemento</label>
+                        <div class="col-6">
+                            <label class="col-form-label"  >Complemento</label>
                             <input type="text" name="complemento" value="{{ old('complemento') }}"
                                 class="col-12  form-control @error('semestres') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Complemento">
@@ -257,8 +257,8 @@
                         </div>
 
                             {{-- //Cidade --}}
-                        <div class="col-4">
-                            <label >Bairro</label>
+                        <div class="col-3">
+                            <label class="col-form-label"  >Cidade</label>
                             <input type="text" name="cidade" value="{{ old('cidade') }}"
                                 class="col-12 form-control @error('cidade') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Cidade">
@@ -272,8 +272,8 @@
 
 
                         {{-- //Estado --}}
-                        <div class="col-4">
-                            <label >Estado</label>
+                        <div class="col-3">
+                            <label class="col-form-label"  >Estado</label>
                             <input type="text" name="estado" value="{{ old('estado') }}"
                                 class="col-12 form-control @error('estado') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Estado">
@@ -287,8 +287,8 @@
 
 
                         {{-- //Pais --}}
-                        <div class="col-4">
-                            <label >Pais</label>
+                        <div class="col-6">
+                            <label class="col-form-label"  >Pais</label>
                             <input type="text" name="pais" value="{{ old('pais') }}"
                                 class="col-12  form-control @error('pais') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Pais">
@@ -301,8 +301,8 @@
                         </div>
 
                         {{-- //CEP --}}
-                        <div class="col-4">
-                            <label >CEP</label>
+                        <div class="col-6">
+                            <label class="col-form-label"  >CEP</label>
                             <input type="text" name="cep" value="{{ old('cep') }}"
                                 class="col-12  form-control @error('cep') is-invalid @enderror" id="inputSemestres"
                                 placeholder="CEP">
@@ -320,7 +320,7 @@
                         </div>
                         <div class="col-12 row">
                             <div class="col-4">
-                                    <label >Vinculo Empregaticio</label>
+                                    <label class="col-form-label"  >Vinculo Empregaticio</label>
                                     <select name="cargo_id" id="cargo" class="form-control col-12">
                                         @foreach ($cargos as $cargo)
                                         <option value="{{$cargo->id}}">{{$cargo->nome_cargo}}</option>
@@ -336,8 +336,8 @@
 
 
                     {{-- //email --}}
-                    <div class="col-4">
-                        <label >Email</label>
+                    <div class="col-8">
+                        <label class="col-form-label"  >Email</label>
                             <input type="text" name="email" value="{{ old('email') }}"
                                 class="col-12  form-control @error('email') is-invalid @enderror" id="inputSemestres"
                                 placeholder="E-mail">
@@ -348,8 +348,8 @@
                                 </span>
                             @enderror
                      </div>
-                            <div class="col-4">
-                                    <label >Tipo Permissão</label>
+                            <div class="col-5">
+                                    <label class="col-form-label"  >Tipo Permissão</label>
                                     <select name="permissao" id="permissao" class="form-control  col-12">
                                         {{--  <option value="Cuiabá">Cuiabá</option>  --}}
 
@@ -359,8 +359,8 @@
                                     </select>
                             </div>
 
-                            <div class="col-4">
-                                <label >Perfil</label>
+                            <div class="col-5">
+                                <label class="col-form-label"  >Perfil</label>
                                     <select name="tipo_perfil_id" id="tipo_perfil_id" class="selectOtion form-control col-12">
                                         @foreach ($tipo_perfils as $tipo_perfil)
                                            <option value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
@@ -375,9 +375,9 @@
 
                             </div>
 
-                            <div class="col-4">
-                                <label class="col-12">Ativo</label>
-                                <label class="switch ">
+                            <div class="col-2">
+                                <label   class="col-12">Ativo</label>
+                                <label  class="switch ">
                                     <input type="checkbox" name="is_activated"  id="togBtn">
                                     <div class="slider round"></div>
                                 </label>
