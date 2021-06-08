@@ -3,31 +3,33 @@
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
     <li class="breadcrumb-item">Secretaria</li>
-    <li class="breadcrumb-item active" aria-current="page">Curso</li>
+    <li class="breadcrumb-item active" aria-current="page">Disciplina</li>
 @endsection
 
 @section('content')
 <div class="container-fluid">
-    <div class="sky-box">
+    <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-                <h1>Lista de Cursos</h1>
-                <a href="{{ route('curso.create') }}" class="btn btn-success">Cadastrar Curso</a>
+                <h1>Lista de Disciplinas</h1>
+                <a href="{{ route('disciplina.create') }}" class="btn btn-success">Cadastrar nova Disciplina</a>
             </div>
 
             <div class="mt-2 card">
                 <div class="card-body">
-                    <form method="GET" action="{{ route('curso.index') }}">
+                    <form method="GET" action="{{ route('disciplina.index') }}">
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="search_curso">Nome do curso</label>
-                                <input type="text" name="curso" value="{{ request('curso') }}" class="form-control" id="search_curso" placeholder="Pesquisar...">
+                            <div class="form-group col-md-9">
+                                <label for="search_disciplina">Nome da disciplina</label>
+                                <input type="text" name="disciplina" value="{{ request('disciplina') }}" class="form-control"
+                                    id="search_disciplina" placeholder="Pesquisar...">
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="search_semestres">Quant. de Semestres</label>
-                                <input type="text" name="semestres" value="{{ request('semestres') }}" class="form-control" id="search_semestres" placeholder="Pesquisar...">
+                                <label for="search_semestres">Carga horaria</label>
+                                <input type="text" name="semestres" value="{{ request('carga_horaria') }}"
+                                    class="form-control" id="search_semestres" placeholder="Pesquisar...">
                             </div>
-                            <div class="col-md-2 d-flex align-items-end">
+                            <div class="col-md-1 d-flex align-items-end">
                                 <button type="submit" class="btn btn-primary mb-3">Pesquisar</button>
                             </div>
                         </div>
@@ -39,22 +41,24 @@
                 <thead>
                     <tr>
                         <th scope="col" width="1">#</th>
-                        <th scope="col">Nome do Curso</th>
-                        <th scope="col" width="1">Semestres</th>
+                        <th scope="col">Nome da Disciplina</th>
+                        <th scope="col" width="2">Carga Horária</th>
                         <th scope="col" width="1">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($cursos as $curso)
+                    @forelse ($disciplinas as $disciplina)
                         <tr>
-                            <th scope="row">{{ $curso->id }}</th>
-                            <td>{{ $curso->nome_curso }}</td>
-                            <td>{{ $curso->semestres }}</td>
+                            <th scope="row">{{ $disciplina->id }}</th>
+                            <td>{{ $disciplina->nome_disciplina }}</td>
+                            <td>{{ $disciplina->carga_horaria }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('curso.show', $curso->id) }}" class="btn btn-primary">Visualizar</a>
-                                    <a href="{{ route('curso.edit', $curso->id) }}" class="btn btn-success">Editar</a>
-                                    <button type="button" class="btn btn-danger deleteModalTarget" data-id="{{ $curso->id }}" data-toggle="modal" data-target="#deleteModal">Excluir</button>
+                                    <a href="{{ route('disciplina.show', $disciplina->id) }}"
+                                        class="btn btn-primary">Visualizar</a>
+                                    <a href="{{ route('disciplina.edit', $disciplina->id) }}"
+                                        class="btn btn-success">Editar</a>
+                                        <button type="button" class="btn btn-danger mr-1 deleteModalTarget" data-id="{{ $disciplina->id }}" data-toggle="modal" data-target="#deleteModal">Excluir</button>
                                 </div>
                             </td>
                         </tr>
@@ -67,7 +71,7 @@
             </table>
 
             <div class="d-flex justify-content-end">
-                {{ $cursos->links() }}
+                {{ $disciplinas->links() }}
             </div>
 
             <div class="mt-4 d-flex justify-content-end">
@@ -77,7 +81,7 @@
     </div>
 </div>
 
-@include('components.modals.delete', ['route' => route('curso.destroy', 'delete-modal')])
+@include('components.modals.delete', ['route' => route('disciplina.destroy', 'delete-modal')])
 
 @error('error')
     <div class="toast bg-danger position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">

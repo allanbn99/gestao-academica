@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
     <li class="breadcrumb-item">Secretaria</li>
-    <li class="breadcrumb-item"><a href="{{ route('curso.index') }}">Curso</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('disciplina.index') }}">Disciplina</a></li>
     <li class="breadcrumb-item active" aria-current="page">Editar</li>
 @endsection
 
@@ -12,28 +12,28 @@
     <div class="sky-box">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-                <h1>{{ $curso->nome_curso }} - Editar Curso</h1>
+                <h1>{{ $disciplina->nome_disciplina }} - Editar Disciplina</h1>
             </div>
 
-            <form class="mt-2" action="{{ route('curso.update', $curso->id) }}" method="POST">
+            <form class="mt-2" action="{{ route('disciplina.update', $disciplina->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputNomeCurso">Nome do Curso</label>
-                        <input type="text" name="nome_curso" value="{{ $curso->nome_curso }}" class="form-control @error('nome_curso') is-invalid @enderror" id="inputNomeCurso" placeholder="Nome do Curso">
+                        <label for="inputNomeDisciplina">Nome da Disciplina</label>
+                        <input type="text" name="nome_disciplina" value="{{ $disciplina->nome_disciplina }}" class="form-control @error('nome_disciplina') is-invalid @enderror" id="inputNomedisciplina" placeholder="Nome da Disciplina">
 
-                        @error('nome_curso')
+                        @error('nome_disciplina')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="inputSemestres">Semestres</label>
-                        <input type="number" name="semestres" value="{{ $curso->semestres }}" class="form-control @error('semestres') is-invalid @enderror" id="inputSemestres" placeholder="Semestres">
+                        <label for="inputCarga_horaria">Carga Horária</label>
+                        <input type="number" name="carga_horaria" value="{{ $disciplina->carga_horaria }}" class="form-control @error('carga_horaria') is-invalid @enderror" id="inputCarga_horaria" placeholder="Carga_horaria">
 
-                        @error('semestres')
+                        @error('carga_horaria')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="mt-4 d-flex justify-content-end">
                     <button type="submit" class="btn btn-success mr-1">Salvar</button>
-                    <a href="{{ route('curso.index') }}" class="btn btn-primary">Voltar</a>
+                    <a href="{{ route('disciplina.index') }}" class="btn btn-primary">Voltar</a>
                 </div>
             </form>
         </div>

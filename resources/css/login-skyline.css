@@ -1,0 +1,23 @@
+.sky-container{
+	width:100vw;
+	height:100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.sky-login-box{
+	background-color: white;
+	width:320px;
+	min-height: auto;
+	padding: 40px 10px;
+	border-top:2px solid red;
+	border-bottom:2px solid red;
+	box-sizing: border-box;
+	border-radius: 5px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.sky-login-header img {
+    width: 100%;
+}

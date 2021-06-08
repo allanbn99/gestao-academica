@@ -1,17 +1,15 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item">Secretaria</li>
-            <li class="breadcrumb-item"><a href="{{ route('curso.index') }}">Curso</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Visualizar</li>
-        </ol>
-    </nav>
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+    <li class="breadcrumb-item">Secretaria</li>
+    <li class="breadcrumb-item"><a href="{{ route('curso.index') }}">Curso</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Visualizar</li>
+@endsection
 
-    <div class="card">
+@section('content')
+<div class="container-fluid">
+    <div class="sky-box">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h1>{{ $curso->nome_curso }} - Visualizar Curso</h1>
