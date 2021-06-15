@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -35,6 +36,8 @@ class Authenticate extends Middleware
     public function handle($request, \Closure $next, ...$guards)
     {
         if (!is_null(Auth::user()) && !Auth::user()->is_activated) {
+
+
             if (Hash::check('default', Auth::user()->password)) {
                 Auth::logout();
                 return redirect()->route('password.request')->with('status', trans('auth.passwordDefault'));

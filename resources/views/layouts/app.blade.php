@@ -15,6 +15,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="/resources/css/app.css" rel="stylesheet">
+
 </head>
 <body class="bg-light">
     <div id="app">
@@ -43,7 +45,7 @@
                         </div>
                     </div>
                 </a>
-
+                
                 <nav class="sky-navigator">
                     <ul class="sky-navbar-vertical-drop">
                         @role('TecnicoAdministrativo')
@@ -57,6 +59,9 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('disciplina.index') }}">Disciplina</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('funcionario.index') }}">Disciplina</a>
                                     </li>
                                 </ul>
                             </li>
