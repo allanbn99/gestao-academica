@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        'is_activated'
     ];
 
     /**
@@ -42,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function pessoa() {
-        return $this->hasOne(Pessoa::class)->first();
+    public function pessoa(){
+        return $this->hasOne(Pessoa::class, 'user_id', 'id');
     }
 }

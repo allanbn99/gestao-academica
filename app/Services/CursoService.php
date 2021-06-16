@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use App\Models\Curso;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
@@ -10,81 +12,103 @@ use InvalidArgumentException;
 
 class CursoService
 {
-    /**
-     * @var Curso $curso
-     */
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     private $curso;
 
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     public function __construct(Curso $curso)
     {
         $this->curso = $curso;
     }
 
-    /**
-     * Busca no banco registros de curso
-     */
-    public function consultar(array $pesquisa = null, int $paginacao = 10): LengthAwarePaginator
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Serviço que retorna a página inicial dos cursos.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
+    public function consultar()
     {
-        if (null === $pesquisa) {
-            return $this->curso->paginate($paginacao);
-        }
-
-        return $this->curso->where('nome_curso', 'LIKE', "%{$pesquisa['nome_curso']}%")
-            ->where('semestres', 'LIKE', "%{$pesquisa['semestres']}%")
-            ->paginate($paginacao);
-    }
-
-    /**
-     * Criar novo curso
-     */
-    public function criar(array $data)
-    {
-        $validator = Validator::make($data, [
-            'nome_curso' => 'required',
-            'semestres'  => 'required|numeric',
+        return view('secretaria.curso.index', [
+            'cursos' => $this->curso->paginate(10)
         ]);
-
-        if ($validator->fails()) {
-            throw new InvalidArgumentException($validator->errors());
-        }
-
-        $this->curso->nome_curso = $data['nome_curso'];
-        $this->curso->semestres  = $data['semestres'];
-
-        $this->curso->save();
     }
 
-    /**
-     * Editar um curso
-     */
-    public function editar(array $data, int $id)
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Serviço para cadastro um novo curso.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
+    public function criar(Request $request)
     {
-        $validator = Validator::make($data, [
+        $request->validate([
             'nome_curso' => 'required',
-            'semestres'  => 'required|numeric',
+            'semestres'  => 'required|numeric'
         ]);
-
-        if ($validator->fails()) {
-            throw new InvalidArgumentException($validator->errors());
-        }
-
-        $cursoEdit = $this->curso->find($id);
-
-        $cursoEdit->nome_curso = $data['nome_curso'];
-        $cursoEdit->semestres  = $data['semestres'];
-
-        $cursoEdit->update();
+        DB::transaction(function () use($request) {
+            Curso::create([
+                'nome_curso' => $request->nome_curso,
+                'semestres' => $request->semestres
+            ]);
+        });
+        return redirect()->route('curso.index')->with('success', trans('validation.create-success'));
     }
 
-    /**
-     * Exclui um curso
-     */
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Serviço para editar um curso.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
+    public function editar(Request $request, int $id)
+    {
+        $request->validate([
+            'nome_curso' => 'required',
+            'semestres'  => 'required|numeric'
+        ]);
+        DB::transaction(function () use($request, $id){
+            Curso::where('id', $id)->update([
+                'nome_curso' => $request->nome_curso,
+                'semestres' => $request->semestres
+            ]);
+        });
+        return redirect()->route('curso.index')->with('success', trans('validation.update-success'));
+    }
+
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Serviço para excluir um curso.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     public function excluir($id)
     {
-        if (null === $this->curso->find($id)) {
-            throw new \InvalidArgumentException("Não foi possível apagar este registro");
+        if(empty(Curso::find($id))){
+            return redirect()->route('curso.index')->withErrors(['error' => 'Curso não encontrado.']);
         }
+        DB::transaction(function () use($id) {
+            Curso::find($id)->delete();
+        });
+        return redirect()->route('curso.index')->with('success', trans('validation.delete-success'));
+    }
 
-        $this->curso->find($id)->delete();
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Serviço que retorna a view e os dados de um curso para edição ou visualização.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
+    public function visualizar($id, $view){
+        $find = Curso::find($id);
+        if($find == null){
+            return redirect()->route('curso.index')->withErrors(['Curso não encontrado.']);
+        }
+        return view($view, [
+            'curso' => $find,
+        ]);
     }
 }

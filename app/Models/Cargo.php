@@ -14,4 +14,9 @@ class Cargo extends Model
         'carga_horaria',
         'jornada_trabalho'
     ];
+
+    public function funcionario(){
+        return $this->hasMany(Funcionario::class, 'cargo_id', 'id');
+    }
+
 }

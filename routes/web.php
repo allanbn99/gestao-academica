@@ -16,14 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-Route::prefix('secretaria')
-    ->middleware('role:TecnicoAdministrativo')
-    ->group(function() {
-        Route::resource('curso', App\Http\Controllers\CursoController::class);
-        Route::resource('funcionario', App\Http\Controllers\FuncionarioController::class);
-        Route::resource('disciplina', App\Http\Controllers\DisciplinaController::class);        
+Route::group([
+    'middleware' => ['auth', 'role:TecnicoAdministrativo'],
+    'prefix' => 'secretaria'
+], function() {
+    Route::resource('curso', App\Http\Controllers\CursoController::class);
+    Route::resource('funcionario', App\Http\Controllers\FuncionarioController::class);
+    Route::resource('disciplina', App\Http\Controllers\DisciplinaController::class);
 }); 
