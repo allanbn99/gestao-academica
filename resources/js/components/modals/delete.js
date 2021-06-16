@@ -1,5 +1,4 @@
 $('.deleteModalTarget').click(function() {
     var id = $(this).data('id');
-
-    $('#deleteModalId').val(id);
+    $('#deleteModalForm').attr('action', window.location.href +'/'+ id);
 });

@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="sky-box">
+    <div class="sky-box mb-2">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h1>{{ $disciplina->nome_disciplina }} - Editar Disciplina</h1>

@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="sky-box">
+        <div class="sky-box mb-2">
             <form class="mt-2" action="{{ route('disciplina.store') }}" method="POST">
                 @csrf
                 <div class="card-body">

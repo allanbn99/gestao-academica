@@ -1,23 +1,23 @@
+{{-- dd($funcionario_enderecos) --}}
 @extends('layouts.app')
 
-@section('content')
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">Home</li>
-                <li class="breadcrumb-item">Secretaria</li>
-                <li class="breadcrumb-item">Funcionario</li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('curso.index') }}">Editar</a></li>
-            </ol>
-        </nav>
+@section('breadcrumb')
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item">Secretaria</li>
+    <li class="breadcrumb-item">Funcionario</li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('curso.index') }}">Editar</a></li>
+@endsection
 
-        <div class="card">
+@section('content')
+    <div class="container-fluid">
+
+        <div class="sky-box mb-2">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <h1 class="  left1">Dados Pessoais</h1>
                 </div>
                 {{-- $funcionario->id  --}}
-                <form class="mt-2"  method="POST" action="{{route('funcionario.update',$funcionario_pessoa[0]->id)}}">
+                <form class="mt-2"  method="POST" action="{{ route('funcionario.update', $funcionario_pessoa->id) }}">
                     @csrf
                     @method('PUT')
                     <div class="form-row">
@@ -27,7 +27,7 @@
                             <div class="col-4">
                                 <label >Nome</label>
 
-                                <input disabled type="text" name="nome" value="{{$funcionario_pessoa[0]->nome}}"
+                                <input disabled type="text" name="nome" value="{{$funcionario_pessoa->nome}}"
                                     class="col-12  form-control @error('nome') is-invalid @enderror" id="nome"
                                     placeholder="Nome">
 
@@ -55,7 +55,7 @@
                             {{-- //cpf --}}
                              <div class="col-4">
                                     <label  >CPF</label>
-                                    <input disabled      type="text" name="cpf" value="{{$funcionario_pessoa[0]->cpf}}"
+                                    <input disabled      type="text" name="cpf" value="{{$funcionario_pessoa->cpf}}"
                                     class="col-12    form-control @error('cpf') is-invalid @enderror" id="cpf"
                                     placeholder="CPF">
 
@@ -69,7 +69,7 @@
                               {{-- //rg --}}
                               <div class="col-4">
                                 <label  >RG</label>
-                                    <input disabled      type="text" name="rg" value="{{$funcionario_pessoa[0]->rg}}"
+                                    <input disabled      type="text" name="rg" value="{{$funcionario_pessoa->rg}}"
                                     class="col-12    form-control @error('cpf') is-invalid @enderror" id="rg"
                                     placeholder="RG">
 
@@ -83,7 +83,7 @@
                              {{--  //nome_pai  --}}
                                <div class="col-4">
                                     <label  >Nome do Pai</label>
-                                    <input disabled      type="text" name="nome_pai" value="{{$funcionario_pessoa[0]->nome_pai}}"
+                                    <input disabled      type="text" name="nome_pai" value="{{$funcionario_pessoa->nome_pai}}"
                                     class="col-12    form-control @error('nome_pai') is-invalid @enderror" id="nome_pai"
                                     placeholder="Nome do Pai">
 
@@ -97,7 +97,7 @@
                                 {{-- //nome_mae --}}
                                 <div class="col-4">
                                     <label  >Nome da Mãe</label>
-                                    <input disabled type="text" name="nome_mae" value="{{$funcionario_pessoa[0]->nome_mae}}"
+                                    <input disabled type="text" name="nome_mae" value="{{$funcionario_pessoa->nome_mae}}"
                                     class="col-12    form-control @error('nome_mae') is-invalid @enderror" id="nome_mae"
                                     placeholder="Nome da Mãe">
 
@@ -111,7 +111,7 @@
                                 {{-- //telefone --}}
                                 <div class="col-4">
                                     <label  >Telefone</label>
-                                    <input disabled      type="text" name="telefone" value="{{$funcionario_pessoa[0]->telefone}}"
+                                    <input disabled      type="text" name="telefone" value="{{$funcionario_pessoa->telefone}}"
                                     class="col-12    form-control @error('telefone') is-invalid @enderror" id="telefone"
                                     placeholder="Telefone">
 
@@ -125,7 +125,7 @@
                                 {{-- //nacionalidade --}}
                                 <div class="col-4">
                                     <label  >Nacionalidade</label>
-                                    <input disabled      type="text" name="nacionalidade" value="{{$funcionario_pessoa[0]->nacionalidade}}"
+                                    <input disabled      type="text" name="nacionalidade" value="{{$funcionario_pessoa->nacionalidade}}"
                                     class="col-12    form-control @error('nacionalidade') is-invalid @enderror" id="nacionalidade"
                                     placeholder="Nacionalidade">
 
@@ -139,7 +139,7 @@
                                  {{-- //naturalidade --}}
                                  <div class="col-4">
                                     <label  >Naturalidade</label>
-                                    <input disabled type="text" name="naturalidade" value="{{$funcionario_pessoa[0]->naturalidade}}"
+                                    <input disabled type="text" name="naturalidade" value="{{$funcionario_pessoa->naturalidade}}"
                                     class="col-12    form-control @error('naturalidade') is-invalid @enderror" id="naturalidade"
                                     placeholder="Naturalidade">
 
@@ -153,7 +153,7 @@
                                 {{-- //titulo_eleito --}}
                                 <div class="col-4">
                                     <label  >Titulo de Eleitor</label>
-                                    <input disabled      type="text" name="titulo_eleitor" value="{{$funcionario_pessoa[0]->titulo_eleitor}}"
+                                    <input disabled      type="text" name="titulo_eleitor" value="{{$funcionario_pessoa->titulo_eleitor}}"
                                     class="col-12    form-control @error('titulo_eleitor') is-invalid @enderror" id="titulo_eleitor"
                                     placeholder="Titulo de Eleitor">
 
@@ -167,7 +167,7 @@
                                 {{-- //reservista --}}
                                 <div class="col-4">
                                     <label  >Reservsta</label>
-                                    <input disabled type="text" name="reservista" value="{{$funcionario_pessoa[0]->reservista}}"
+                                    <input disabled type="text" name="reservista" value="{{$funcionario_pessoa->reservista}}"
                                     class="col-12    form-control @error('reservista') is-invalid @enderror" id="reservista"
                                     placeholder="Reservista">
 
@@ -181,7 +181,7 @@
                                 {{-- //carteira_trabalho--}}
                                 <div class="col-4">
                                     <label  >Carteira de Trabalho</label>
-                                    <input disabled      type="text" name="carteira_trabalho" value="{{$funcionario_pessoa[0]->carteira_trabalho}}"
+                                    <input disabled      type="text" name="carteira_trabalho" value="{{$funcionario_pessoa->carteira_trabalho}}"
                                     class="col-12    form-control @error('carteira_trabalho') is-invalid @enderror" id="carteira_trabalho"
                                     placeholder="Carteira">
 
@@ -216,7 +216,7 @@
                             <div class="col-4">
                                     <label  >Rua</label>
 
-                                    <input disabled      type="text" name="rua" value="{{$funcionario_enderecos[0]->rua}}"
+                                    <input disabled      type="text" name="rua" value="{{ $funcionario_enderecos->rua }}"
                                         class="col-12    form-control @error('rua') is-invalid @enderror" id="inputSemestres"
                                         placeholder="Rua">
 
@@ -230,7 +230,7 @@
                             {{-- //Número --}}
                         <div class="col-4">
                             <label  >Número</label>
-                                <input disabled      type="text" name="numero" value="{{$funcionario_enderecos[0]->numero}}"
+                                <input disabled      type="text" name="numero" value="{{$funcionario_enderecos->numero}}"
                                     class="col-12    form-control @error('numero') is-invalid @enderror" id="inputSemestres"
                                     placeholder="Número">
 
@@ -244,7 +244,7 @@
                             {{-- //Bairro --}}
                             <div class="col-4">
                                 <label  >Bairro</label>
-                            <input disabled      type="text" name="bairro" value="{{$funcionario_enderecos[0]->bairro}}"
+                            <input disabled      type="text" name="bairro" value="{{$funcionario_enderecos->bairro}}"
                                 class="col-12    form-control @error('bairro') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Bairro">
 
@@ -258,7 +258,7 @@
                             {{-- //Complemento --}}
                             <div class="col-4">
                                 <label  >Complemento</label>
-                            <input disabled      type="text" name="complemento" value="{{$funcionario_enderecos[0]->complemento}}"
+                            <input disabled      type="text" name="complemento" value="{{$funcionario_enderecos->complemento}}"
                                 class="col-12    form-control @error('semestres') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Complemento">
 
@@ -272,7 +272,7 @@
                             {{-- //Cidade --}}
                             <div class="col-4">
                                 <label  >Cidade</label>
-                            <input disabled      type="text" name="cidade" value="{{$funcionario_enderecos[0]->cidade}}"
+                            <input disabled      type="text" name="cidade" value="{{$funcionario_enderecos->cidade}}"
                                 class="col-12    form-control @error('cidade') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Cidade">
 
@@ -286,7 +286,7 @@
                             {{-- //Estado --}}
                             <div class="col-4">
                                 <label  >Estado</label>
-                            <input disabled      type="text" name="estado" value="{{$funcionario_enderecos[0]->estado}}"
+                            <input disabled      type="text" name="estado" value="{{$funcionario_enderecos->estado}}"
                                 class="col-12    form-control @error('estado') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Estado">
 
@@ -300,7 +300,7 @@
                             <div class="col-6">
                                 <label  >Pais</label>
                             {{-- //Pais --}}
-                            <input disabled      type="text" name="pais" value="{{$funcionario_enderecos[0]->pais}}"
+                            <input disabled      type="text" name="pais" value="{{$funcionario_enderecos->pais}}"
                                 class="col-12    form-control @error('pais') is-invalid @enderror" id="inputSemestres"
                                 placeholder="Pais">
 
@@ -313,7 +313,7 @@
                             {{-- //CEP --}}
                             <div class="col-6">
                                 <label  >CEP</label>
-                            <input disabled      type="text" name="cep" value="{{$funcionario_enderecos[0]->cep}}"
+                            <input disabled      type="text" name="cep" value="{{$funcionario_enderecos->cep}}"
                                 class="col-12    form-control @error('cep') is-invalid @enderror" id="inputSemestres"
                                 placeholder="CEP">
 
@@ -332,14 +332,8 @@
                         <div class="col-12 row">
                             <div class="col-4">
                                     <label >Vinculo Empregaticio</label>
-                                   <select disabled name="cargo_id" id="cargo" class="form-control col-12">
-                                        @foreach ($funcionario_Cargos as $cargo)
-                                            @if ($funcionario->cargo_id ==  $cargo->id)
-                                                <option selected value="{{$cargo->id}}">{{$cargo->nome_cargo}}</option>
-                                            @else
-                                            <option value="{{$cargo->id}}">{{$cargo->nome_cargo}}</option>
-                                            @endif
-                                        @endforeach
+                                    <select disabled name="cargo_id" id="cargo" class="form-control col-12">
+                                        <option selected value="{{ $funcionario->cargo->id }}">{{ $funcionario->cargo->nome_cargo }}</option>
                                     </select>
 
                                 @error('funcao')
@@ -362,37 +356,12 @@
                                 </span>
                             @enderror
                      </div>
-                            <div class="col-4">
-                                    <label >Tipo Permissão</label>
-                                    <select disabled name="permissao" id="permissao" class="form-control  col-12">
-                                        {{--  <option value="Cuiabá">Cuiabá</option>  --}}
-
-                                      @foreach ($funcionario_roles as $role)
-                                        <option value="{{$role->name}}">{{$role->name}}</option>
-                                        @endforeach
-                                      </select>
-                            </div>
 
                             <div class="col-4">
                                 <label >Perfil</label>
-                                     <select disabled name="tipo_perfil_id" id="tipo_perfil_id" class="selectOtion form-control col-12">
-                                        @foreach ($funcionario_tipo_perfis as $tipo_perfil)
-                                        @if ($funcionario_pessoa[0]->tipo_perfil_id ==  $tipo_perfil->id)
-                                           <option selected value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
-
-                                           @else
-
-                                        @endif
-                                           <option value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('tipo_perfil_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-
+                                <select disabled name="tipo_perfil_id" id="tipo_perfil_id" class="selectOtion form-control col-12">
+                                    <option selected value="{{ $funcionario_tipo_perfis->id }}">{{ $funcionario_tipo_perfis->nome_perfil }}</option>
+                                </select>
                             </div>
 
                             <div class="col-4">

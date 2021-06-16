@@ -15,11 +15,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="/resources/css/app.css" rel="stylesheet">
+    <link href="{{ asset('css/FormStep.css') }}" rel="stylesheet">
+    {{--<link href="/resources/css/app.css" rel="stylesheet">--}}
 
 </head>
 <body class="bg-light">
-    <div id="app">
+    <div class="sky-container">
         @if (!isset($noSidebar))
             <div class="sky-menu-vertical">
 
@@ -37,9 +38,9 @@
                         </div>
                         <div class="ml-1 d-flex align-items-center">
                             <div>
-                                {{ auth()->user()->pessoa()->nome ?? 'Anônimo' }}<br>
+                                {{ Auth::user()->pessoa->nome }}<br>
                                 <small class="text-muted">
-                                    {{ auth()->user()->pessoa()->tipoPerfil()->nome_perfil ?? 'Não Informado' }}
+                                    {{ Auth::user()->pessoa->tipoPerfil->nome_perfil }}
                                 </small>
                             </div>
                         </div>
@@ -61,7 +62,7 @@
                                         <a href="{{ route('disciplina.index') }}">Disciplina</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('funcionario.index') }}">Disciplina</a>
+                                        <a href="{{ route('funcionario.index') }}">Funcionários</a>
                                     </li>
                                 </ul>
                             </li>
@@ -106,8 +107,34 @@
         @endif
     </div>
 
+    @if($errors->any())
+        <div class="toast bg-danger position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+            <div class="toast-body text-white">
+                <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                    <br>
+                @endforeach
+            </div>
+        </div>
+    @endif
 
+    @if (session('success'))
+        <div class="toast bg-success position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+            <div class="toast-body text-white">
+                <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
+
+    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/FormStep.js') }}" defer></script>
     <script>
         //Troca de lado a seta do menu dropdown e mostra/não mostra o submenu
 		function toggleMenu(idElement, idIcon){
@@ -130,6 +157,5 @@
 	</script>
 
     @stack('scripts')
-
 </body>
 </html>

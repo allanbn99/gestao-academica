@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+    <li class="breadcrumb-item" title="Página inicial"><a href="{{ route('home') }}">Home</a></li>
     <li class="breadcrumb-item">Secretaria</li>
-    <li class="breadcrumb-item active" aria-current="page">Curso</li>
+    <li class="breadcrumb-item active" aria-current="page" title="Página de cursos">Curso</li>
 @endsection
 
 @section('content')
@@ -19,16 +19,9 @@
                 <div class="card-body">
                     <form method="GET" action="{{ route('curso.index') }}">
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="search_curso">Nome do curso</label>
-                                <input type="text" name="curso" value="{{ request('curso') }}" class="form-control" id="search_curso" placeholder="Pesquisar...">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="search_semestres">Quant. de Semestres</label>
-                                <input type="text" name="semestres" value="{{ request('semestres') }}" class="form-control" id="search_semestres" placeholder="Pesquisar...">
-                            </div>
-                            <div class="col-md-2 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary mb-3">Pesquisar</button>
+                            <div class="form-group col-md-12">
+                                <label for="search_curso">Pesquisar por nome ou semestre</label>
+                                <input type="text" name="curso" value="{{ request('curso') }}" class="form-control" id="search_input" placeholder="Curso tal ou 6, 8 e etc..." title="Barra de pesquisa, pesquise pelo nome do curso ou pela quantidade de semestres.">
                             </div>
                         </div>
                     </form>
@@ -44,7 +37,7 @@
                         <th scope="col" width="1">Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="result_table">
                     @forelse ($cursos as $curso)
                         <tr>
                             <th scope="row">{{ $curso->id }}</th>
@@ -77,28 +70,6 @@
     </div>
 </div>
 
-@include('components.modals.delete', ['route' => route('curso.destroy', 'delete-modal')])
-
-@error('error')
-    <div class="toast bg-danger position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-        <div class="toast-body text-white">
-            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ $message }}
-        </div>
-    </div>
-@enderror
-
-@if (session('success'))
-    <div class="toast bg-success position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-        <div class="toast-body text-white">
-            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ session('success') }}
-        </div>
-    </div>
-@endif
+@include('components.modals.delete')
 
 @endsection

@@ -2,279 +2,227 @@
 
 namespace App\Services;
 
-use App\Models\Endereco;
 use Illuminate\Http\Request;
-use App\Models\Funcionarios;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Pessoa;
-use App\Models\User;
+use App\Models\{Endereco, Pessoa, User, PessoaEndereco, Funcionario, Cargo, TipoPerfil};
 use InvalidArgumentException;
-use App\Models\pessoas_endereco;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class FuncionarioService
 {
 
-     /**
-     * @var Funcionarios $curso
-     */
     private $funcionarios;
 
-    public function __construct(Funcionarios $funcionarios)
+    public function __construct(Funcionario $funcionarios)
     {
         $this->funcionarios = $funcionarios;
     }
+
+    /*
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para criar um novo funcionário.
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    */
     public function criar(Request $request)
     {
-
-        $data = $request->only([
-            'matricula',
-            'nome',
-            'cpf',
-            'rg',
-            'nome_pai',
-            'nome_mae',
-            'telefone',
-            'nacionalidade',
-            'naturalidade',
-            'titulo_eleitor',
-            'reservista',
-            'carteira_trabalho',
-            'rua',
-            'numero',
-            'bairro',
-            'complemento',
-            'cidade',
-            'estado',
-            'pais',
-            'cep',
-            'email',
+        //Funcionando ok
+        $request->validate([
+            'matricula'     =>'required',
+            'nome'          => 'required',
+            'cpf'           => 'required',
+            'rg'            => 'required',
+            'nome_pai'      => 'required',
+            'nome_mae'      => 'required',
+            'telefone'      => 'required',
+            'nacionalidade'         => 'required',
+            'naturalidade'          => 'required',
+            'titulo_eleitor'        => 'required',
+            'reservista'            => 'required',
+            'carteira_trabalho'     => 'required',
+            'rua'           => 'required',
+            'numero'        => 'required',
+            'bairro'        => 'required',
+            //'complemento'   => 'required',
+            'cidade'        => 'required',
+            'estado'        => 'required',
+            //'pais'          => 'required',
+            'cep'           => 'required',
+            'email'         => 'required'
         ]);
 
-        $validator = Validator::make($data, [
-            'matricula'=>'required',
-           'nome' => 'required',
-           'cpf' => 'required',
-            'rg' => 'required',
-            'nome_pai' => 'required',
-            'nome_mae' => 'required',
-            'telefone' => 'required',
-             'nacionalidade' => 'required',
-            'naturalidade' => 'required',
-             'titulo_eleitor' => 'required',
-            'reservista' => 'required',
-             'carteira_trabalho' => 'required',
-            'rua' => 'required',
-            'numero' => 'required',
-            'bairro' => 'required',
-            'complemento' => 'required',
-            'cidade' => 'required',
-            'estado' => 'required',
-            'pais' => 'required',
-            'cep' => 'required',
-            'email' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-
-            throw new InvalidArgumentException($validator->errors());
-
-        }
-
-        $user = new User;
-        $user->email = $request->email;
-        $user->password = Hash::make('default'); //$request->CPF
-        $user->assignRole($request->permissao);
-        if($request->is_activated == "on")
-        {
-           $user->is_activated = 1;
-        }else{
-            $user->is_activated = 0;
-        }
-
-        $user->save();
-        //pegar o id
-        $pessoa = new Pessoa;
-        $pessoa->nome = $request->nome  ;
-        $pessoa->cpf = $request->cpf ;
-        $pessoa->rg = $request->rg;
-        $pessoa->nome_pai = $request->nome_pai;
-        $pessoa->nome_mae = $request->nome_mae;
-        $pessoa->telefone = $request->telefone;
-        $pessoa->nacionalidade = $request->nacionalidade;
-        $pessoa->naturalidade = $request->naturalidade;
-        $pessoa->titulo_eleitor = $request->titulo_eleitor;
-        $pessoa->reservista = $request->reservista;
-        $pessoa->carteira_trabalho = $request->carteira_trabalho;
-        $pessoa->tipo_perfil_id = $request->tipo_perfil_id;
-        $pessoa->user_id = $user->id;
-        // $pessoa->celu = $request->telefone;
-
-        $endereco = new Endereco;
-        $endereco->rua = $request->rua;
-        $endereco->numero = $request->numero;
-        $endereco->bairro = $request->bairro;
-        $endereco->complemento = $request->complemento;
-        $endereco->cidade = $request->cidade;
-        $endereco->estado = $request->estado;
-        $endereco->pais = $request->pais;
-        $endereco->cep = $request->cep;
-
-        $pessoa->save();
-        $endereco->save();
-
-        $pessoa_endereco = new pessoas_endereco;
-
-        $pessoa_endereco->pessoa_id = $pessoa->id;
-        $pessoa_endereco->endereco_id = $endereco->id;
-        $pessoa_endereco->save();
-
-        $funcionario = new funcionarios;
-        $funcionario->pessoa_Id = $pessoa->id;
-        $funcionario->matricula = $request->matricula;
-        $funcionario->cargo_id = $request->cargo_id;
-
-        $funcionario->save();
-
-        // $usuario = new User;
-        // $usuario->email =  $request->email;
-        // // $usuario->password =  $request->password;
-
-
-
+        DB::transaction(function() use($request) {
+            $user = User::create([
+                'email' => $request->email,
+                'password' => Hash::make('default'),
+                'is_activated' => $request->is_activated == 'on' ? 1: 0,
+            ])->assignRole($request->permissao);
+    
+            $pessoa = Pessoa::create([
+                'nome'          => $request->nome,
+                'cpf'           => str_replace(['.', '-'], ['', ''], $request->cpf),
+                'rg'            => $request->rg,
+                'nome_pai'      => $request->nome_pai,
+                'nome_mae'      => $request->nome_mae,
+                'telefone'      => $request->telefone,
+                'nacionalidade' => $request->nacionalidade,
+                'naturalidade'      => $request->naturalidade,
+                'titulo_eleitor'    => $request->titulo_eleitor,
+                'reservista'        => $request->reservista,
+                'carteira_trabalho' => $request->carteira_trabalho,
+                'tipo_perfil_id'    => $request->tipo_perfil_id,
+                'user_id'           => $user->id,
+            ]);
+            
+            $endereco = Endereco::create([
+                'rua'       => $request->rua,
+                'numero'    => $request->numero,
+                'bairro'    => $request->bairro,
+                'complemento'   => $request->complemento ?? 'none',
+                'cidade'        => $request->cidade,
+                'estado'        => $request->estado,
+                'pais'          => 'Brasil',
+                'cep'           => $request->cep,
+            ]);
+    
+            $pessoa_endereco = PessoaEndereco::create([
+                'pessoa_id'     => $pessoa->id,
+                'endereco_id'   => $endereco->id,
+            ]);
+    
+            $funcionario = Funcionario::create([
+                'pessoa_id' => $pessoa->id,
+                'matricula' => $request->matricula,
+                'cargo_id' => $request->cargo_id,
+                'is_status' => 0
+            ]);
+        });
+        
+        return redirect()->route('funcionario.index')->with('success', trans('validation.create-success'));
 
     }
 
-    public function consultar(Request $request)
-    {
-        $funcionarioSearch =  $request->query('funcionario');
-        $funcaoSearch =  $request->query('funcao');
-
-        $funcionarios = DB::table('funcionarios')
-            ->join('pessoas','funcionarios.pessoa_id','=','pessoas.id')
-            ->join('cargos','funcionarios.cargo_id','=','cargos.id')
-            ->select('pessoas.nome as pessoa_nome','cargos.nome_cargo as cargo_nome','funcionarios.id as funcionarioId','funcionarios.is_status as is_status')
-            ->where('nome','LIKE', "%{$funcionarioSearch}%")
-            ->where('nome_cargo','LIKE', "%{$funcaoSearch}%")
-            ->paginate(10);
-
-            return $funcionarios;
+    /*
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para retornar todos os funcionários.
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    */
+    public function funcionarios(){
+        return Funcionario::with('pessoa', 'cargo')->paginate(10);
     }
 
+    /*
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para excluir dados de um funcionário.
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    */
     public function excluir($id)
     {
-        if (null === $this->funcionarios->find($id)) {
-            throw new \InvalidArgumentException("Não foi possível apagar este registro");
+        if(empty(Funcionario::find($id))){
+            return redirect()->route('funcionario.index')->withErrors(['error' => 'Funcionário não encontrado(a).']);
         }
-
-        $this->funcionarios->find($id)->delete();
+        DB::transaction(function () use($id) {
+            Funcionario::find($id)->delete();
+        });
+        return redirect()->route('funcionario.index')->with('success', trans('validation.delete-success'));
     }
 
-    public function update(Request $request,$id)
+    /*
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para atualizar dados de um funcionário.
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    */
+    public function update(Request $request, $id)
     {
-        $data = $request->only([
-            'matricula',
-            'nome',
-            'cpf',
-            'rg',
-            'nome_pai',
-            'nome_mae',
-            'telefone',
-            'nacionalidade',
-            'naturalidade',
-            'titulo_eleitor',
-            'reservista',
-            'carteira_trabalho',
-            'rua',
-            'numero',
-            'bairro',
-            'complemento',
-            'cidade',
-            'estado',
-            'pais',
-            'cep',
-            'email',
+        $request->validate([
+            'matricula'     =>'required',
+            'nome'          => 'required',
+            'cpf'           => 'required',
+            'rg'            => 'required',
+            'nome_pai'      => 'required',
+            'nome_mae'      => 'required',
+            'telefone'      => 'required',
+            'nacionalidade' => 'required',
+            'naturalidade'  => 'required',
+            'titulo_eleitor'    => 'required',
+            'reservista'        => 'required',
+            'carteira_trabalho' => 'required',
+            'rua'               => 'required',
+            'numero'            => 'required',
+            'bairro'        => 'required',
+            'complemento'   => 'required',
+            'cidade'        => 'required',
+            'estado'        => 'required',
+            'pais'          => 'required',
+            'cep'           => 'required',
+            'email'         => 'required',
         ]);
 
-        $validator = Validator::make($data, [
-            'matricula'=>'required',
-           'nome' => 'required',
-           'cpf' => 'required',
-            'rg' => 'required',
-            'nome_pai' => 'required',
-            'nome_mae' => 'required',
-            'telefone' => 'required',
-             'nacionalidade' => 'required',
-            'naturalidade' => 'required',
-             'titulo_eleitor' => 'required',
-            'reservista' => 'required',
-             'carteira_trabalho' => 'required',
-            'rua' => 'required',
-            'numero' => 'required',
-            'bairro' => 'required',
-            'complemento' => 'required',
-            'cidade' => 'required',
-            'estado' => 'required',
-            'pais' => 'required',
-            'cep' => 'required',
-            'email' => 'required',
+        DB::transaction(function () use($request, $id) {
+            Funcionario::Where('pessoa_id', $id)->update(['cargo_id' => $request->cargo_id]);
+
+            Pessoa::where('id', $id)->update([
+                'nome'      => $request->nome,
+                'cpf'       => $request->cpf,
+                'rg'        => $request->rg,
+                'nome_pai'  => $request->nome_pai,
+                'nome_mae'  => $request->nome_mae,
+                'telefone'  => $request->telefone,
+                'nacionalidade'     => $request->nacionalidade,
+                'naturalidade'      => $request->naturalidade,
+                'titulo_eleitor'    => $request->titulo_eleitor,
+                'reservista'        => $request->reservista,
+                'carteira_trabalho' => $request->carteira_trabalho,
+                'tipo_perfil_id'    => $request->tipo_perfil_id,
+            ]);
+
+            $pessoa = Pessoa::find($id);
+
+            $pessoa_endereco =  PessoaEndereco::where('pessoa_id', $id)->get();
+
+            Endereco::where('id', $pessoa_endereco[0]->endereco_id)->update([
+                'rua'       => $request->rua,
+                'numero'    => $request->numero,
+                'bairro'    => $request->bairro,
+                'complemento'   => $request->complemento,
+                'cidade'        => $request->cidade,
+                'estado'        => $request->estado,
+                'pais'          => $request->pais,
+                'cep'           => $request->cep,
+            ]);
+
+            User::where('id', $pessoa->user_id)->update([
+                'email' => $request->email,
+                'is_activated' => $request->is_activated == 'on' ? 1: 0,
+            ]);
+            User::find($pessoa->user_id)->assignRole($request->permissao);
+
+        });
+        return redirect()->route('funcionario.index')->with('success', trans('validation.update-success'));
+    }
+
+    /*
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para retornar dados de um funcionário.
+    |-------------------------------------------------------------------------------------------------------------------------------------
+    */
+    public function visualizar($id, $view){
+        if(Funcionario::find($id) == null){
+            return redirect()->route('funcionario.index')->withErrors(['error' => 'Funcionário(a) não encontrado.']);
+        }
+        $funcionario = Funcionario::where('id', $id)->with('pessoa', 'pessoa.user', 'pessoa.tipoPerfil', 'pessoa.endereco.endereco', 'cargo')->get();
+        $funcionario_roles = DB::table('roles')->get();
+        return view($view, [
+            'pessoas_enderecos' => $funcionario[0]->pessoa->endereco,
+            'funcionario_pessoa' => $funcionario[0]->pessoa,
+            'funcionario' => $funcionario[0],
+            'funcionario_enderecos' => $funcionario[0]->pessoa->endereco->endereco,
+            'funcionario_usuarios' => $funcionario[0]->pessoa->user,
+            'funcionario_Cargos' => $funcionario[0]->cargo,
+            'funcionario_roles' => $funcionario_roles,
+            'funcionario_tipo_perfis' => $funcionario[0]->pessoa->tipoPerfil,
+            'cargos' => Cargo::get(),
+            'perfis' => TipoPerfil::get()
         ]);
-
-        if ($validator->fails()) {
-
-            throw new InvalidArgumentException($validator->errors());
-
-        }
-        $funcionario = funcionarios::find($request->id);
-
-        funcionarios::Where('pessoa_id','=',$id)->update(['cargo_id'=>$request->cargo_id]);
-
-        $pessoa = Pessoa::find($id);
-        $pessoa->nome = $request->nome  ;
-        $pessoa->cpf = $request->cpf ;
-        $pessoa->rg = $request->rg;
-        $pessoa->nome_pai = $request->nome_pai;
-        $pessoa->nome_mae = $request->nome_mae;
-        $pessoa->telefone = $request->telefone;
-        $pessoa->nacionalidade = $request->nacionalidade;
-        $pessoa->naturalidade = $request->naturalidade;
-        $pessoa->titulo_eleitor = $request->titulo_eleitor;
-        $pessoa->reservista = $request->reservista;
-        $pessoa->carteira_trabalho = $request->carteira_trabalho;
-        $pessoa->tipo_perfil_id = $request->tipo_perfil_id;
-
-       // // $pessoa->celu = $request->telefone;
-        $pessoa->save();
-
-        $pessoa_endereco =  pessoas_endereco::where('pessoa_id','=',$id)->get();
-
-
-        $endereco = Endereco::find($pessoa_endereco[0]->endereco_id);
-        $endereco->rua = $request->rua;
-        $endereco->numero = $request->numero;
-        $endereco->bairro = $request->bairro;
-        $endereco->complemento = $request->complemento;
-        $endereco->cidade = $request->cidade;
-        $endereco->estado = $request->estado;
-        $endereco->pais = $request->pais;
-        $endereco->cep = $request->cep;
-        $endereco->update();
-
-        $user = User::find($pessoa->user_id);
-
-        $user->email = $request->email;
-        $user->password = Hash::make('default'); //$request->CPF
-        $user->assignRole($request->permissao);
-        if($request->is_activated == "on")
-        {
-           $user->is_activated = 1;
-        }else{
-            $user->is_activated = 0;
-        }
-
-        $user->save();
-
-      $user->save();
     }
 }

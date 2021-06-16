@@ -3,158 +3,94 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
-use App\Models\Curso;
-use App\Models\Disciplina;
 use App\Services\CursoService;
-use Exception;
 
 class CursoController extends Controller
 {
-    /**
-     * @var CursoService $cursoService
-     */
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     private $cursoService;
 
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     public function __construct(CursoService $cursoService)
     {
         $this->cursoService = $cursoService;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Chama o serviço que retorna a página inicial.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     public function index(Request $request)
     {
-        $pesquisa = [
-            'nome_curso' => $request->query('curso'),
-            'semestres'  => $request->query('semestres'),
-        ];
-
-        $result = $this->cursoService->consultar($pesquisa);
-
-        return view('secretaria.curso.index', [
-            'cursos' => $result
-        ]);
+        return $this->cursoService->consultar();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Retorna a view/formulário de cadastro de um novo curso.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     public function create()
     {
-        return view('secretaria.curso.cadastrar', [
-            'disciplinas' => Disciplina::all(),
-        ]);
+        return view('secretaria.curso.cadastrar');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Chama um serviço para cadastrar um novo curso.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     public function store(Request $request)
     {
-        $data = $request->only([
-            'nome_curso',
-            'semestres',
-        ]);
-
-        try {
-            $this->cursoService->criar($data);
-
-        } catch (Exception $e) {
-            throw ValidationException::withMessages(json_decode($e->getMessage(), true));
-
-        }
-
-        return redirect()->route('curso.index')->with('success', trans('validation.create-success'));
+        return $this->cursoService->criar($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Chama o serviço que retorna o formulário para visualização de um curso.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     public function show($id)
     {
-        if (null === Curso::find($id)) {
-            abort(404);
-        }
-
-        return view('secretaria.curso.visualizar', [
-            'curso' => Curso::find($id),
-        ]);
+        return $this->cursoService->visualizar($id, 'secretaria.curso.visualizar');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Chama o serviço que retorna o formulário para edição de um curso.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     public function edit($id)
     {
-        if (null === Curso::find($id)) {
-            abort(404);
-        }
-
-        return view('secretaria.curso.editar', [
-            'curso' => Curso::find($id),
-        ]);
+        return $this->cursoService->visualizar($id, 'secretaria.curso.editar');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Chama o serviço para atualizar um curso.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
     public function update(Request $request, $id)
     {
-        $data = $request->only([
-            'nome_curso',
-            'semestres',
-        ]);
-
-        try {
-            $this->cursoService->editar($data, $id);
-
-        } catch (\Exception $e) {
-            throw ValidationException::withMessages(json_decode($e->getMessage(), true));
-
-        }
-
-        return redirect()->route('curso.index')->with('success', trans('validation.update-success'));
+        return $this->cursoService->editar($request, $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  mixed  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id, Request $request)
+    /*
+    |-----------------------------------------------------------------------------------------------------------------------
+    |   Chama o serviço para excluir um curso.
+    |-----------------------------------------------------------------------------------------------------------------------
+    */
+    public function destroy($id)
     {
-        if ('delete-modal' === $id) {
-            $id = (int)$request->delete_modal_id;
-        }
-
-        try {
-            $this->cursoService->excluir($id);
-
-        } catch (\Exception $e) {
-            throw ValidationException::withMessages(['error' => [$e->getMessage()]]);
-
-        }
-
-        return redirect()->route('curso.index')->with('success', trans('validation.delete-success'));
+        return $this->cursoService->excluir($id);
     }
 }

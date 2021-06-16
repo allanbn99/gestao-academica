@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use App\Models\Disciplina;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
@@ -9,81 +11,103 @@ use InvalidArgumentException;
 
 class DisciplinaService
 {
-    /**
-     * @var Disciplina $disciplina
-     */
+    /*
+    |------------------------------------------------------------------------------------------------------------------------
+    |   
+    |------------------------------------------------------------------------------------------------------------------------
+    */
     private $disciplina;
 
+    /*
+    |------------------------------------------------------------------------------------------------------------------------
+    |   
+    |------------------------------------------------------------------------------------------------------------------------
+    */
     public function __construct(Disciplina $disciplina)
     {
         $this->disciplina = $disciplina;
     }
 
-    /**
-     * Busca no banco registros de disciplinas
-     */
-    public function consultar(array $pesquisa = null, int $paginacao = 10): LengthAwarePaginator
+    /*
+    |------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para listar todas as disciplinas
+    |------------------------------------------------------------------------------------------------------------------------
+    */
+    public function consultar()
     {
-        if (null === $pesquisa) {
-            return $this->disciplina->paginate($paginacao);
-        }
-
-        return $this->disciplina->where('nome_disciplina', 'LIKE', "%{$pesquisa['nome_disciplina']}%")
-            ->where('carga_horaria', 'LIKE', "%{$pesquisa['carga_horaria']}%")
-            ->paginate($paginacao);
+        return view('secretaria.disciplina.index', [
+            'disciplinas' => $this->disciplina->paginate(10)
+        ]);
     }
 
-    /**
-     * Criar nova Disciplina
-     */
-    public function criar(array $data)
+    /*
+    |------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para criar uma nova disciplina.
+    |------------------------------------------------------------------------------------------------------------------------
+    */
+    public function criar(Request $request)
     {
-        $validator = Validator::make($data, [
+        $request->validate([
             'nome_disciplina' => 'required',
             'carga_horaria'  => 'required',
         ]);
-
-        if ($validator->fails()) {
-            throw new InvalidArgumentException($validator->errors());
-        }
-
-        $this->disciplina->nome_disciplina = $data['nome_disciplina'];
-        $this->disciplina->carga_horaria  = $data['carga_horaria'];
-
-        $this->disciplina->save();
+        DB::transaction(function () use($request) {
+            Disciplina::create([
+                'nome_disciplina' => $request->nome_disciplina,
+                'carga_horaria' => $request->carga_horaria,
+            ]);
+        });
+        return redirect()->route('disciplina.index')->with('success', trans('validation.create-success'));
     }
 
-    /**
-     * Editar uma Disciplina
-     */
-    public function editar(array $data, int $id)
+    /*
+    |------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para editar uma disciplina.
+    |------------------------------------------------------------------------------------------------------------------------
+    */
+    public function editar(Request $request, int $id)
     {
-        $validator = Validator::make($data, [
+        $request->validate([
             'nome_disciplina' => 'required',
             'carga_horaria'  => 'required|numeric',
         ]);
-
-        if ($validator->fails()) {
-            throw new InvalidArgumentException($validator->errors());
-        }
-
-        $disciplinaEdit = $this->disciplina->find($id);
-
-        $disciplinaEdit->nome_disciplina = $data['nome_disciplina'];
-        $disciplinaEdit->carga_horaria  = $data['carga_horaria'];
-
-        $disciplinaEdit->update();
+        DB::transaction(function () use($request, $id) {
+            Disciplina::where('id', $id)->update([
+                'nome_disciplina' => $request->nome_disciplina,
+                'carga_horaria' => $request->carga_horaria
+            ]);
+        });
+        return redirect()->route('disciplina.index')->with('success', trans('validation.update-success'));
     }
 
-    /**
-     * Exclui uma Disciplina
-     */
+    /*
+    |------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para excluir uma disciplina.
+    |------------------------------------------------------------------------------------------------------------------------
+    */
     public function excluir($id)
     {
-        if (null === $this->disciplina->find($id)) {
-            throw new \InvalidArgumentException("Não foi possível apagar este registro");
+        if(empty(Disciplina::find($id))){
+            return redirect()->route('disciplina.index')->withErrors(['error' => 'Disciplina não encontrada.']);
         }
+        DB::transaction(function () use($id) {
+            Disciplina::find($id)->delete();
+        });
+        return redirect()->route('disciplina.index')->with('success', trans('validation.delete-success'));
+    }
 
-        $this->disciplina->find($id)->delete();
+    /*
+    |------------------------------------------------------------------------------------------------------------------------
+    |   Serviço para retornar dados de uma disciplina.
+    |------------------------------------------------------------------------------------------------------------------------
+    */
+    public function visualizar($id, $view){
+        $find = Disciplina::find($id);
+        if($find == null){
+            return redirect('secretaria/disciplina')->withErrors(['Disciplina não encontrada.']);
+        }
+        return view($view, [
+            'disciplina' => $find
+        ]);
     }
 }

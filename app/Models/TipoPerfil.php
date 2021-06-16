@@ -11,6 +11,8 @@ class TipoPerfil extends Model
 
     public $timestamps = false;
 
+    protected $table = 'tipo_perfils';
+
     protected $fillable = [
         'nome_perfil',
         'is_vinculo'
