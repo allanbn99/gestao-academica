@@ -7,3 +7,5 @@ require('./components/modals/delete');
 $(document).ready(function() {
     $('.toast').toast('show');
 });
+
+

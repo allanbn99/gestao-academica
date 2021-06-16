@@ -18,6 +18,7 @@ class CreateCargosTable extends Migration
             $table->string('nome_cargo', 45);
             $table->integer('carga_horaria');
             $table->integer('jornada_trabalho');
+            $table->string('setor', 45);
         });
     }
 
