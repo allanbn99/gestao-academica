@@ -1,7 +1,7 @@
 @extends('layouts.app', ['noSidebar' => true])
 
 @section('content')
-<div class="sky-container">
+<div class="container-fluid d-flex justify-content-center align-items-center">
     <div class="sky-login-box">
         <div class="sky-login-header mb-4">
             <img src="{{ asset('img/logo-dark.png') }}">

@@ -48,7 +48,7 @@ class DisciplinaService
     public function criar(Request $request)
     {
         $request->validate([
-            'nome_disciplina' => 'required',
+            'nome_disciplina' => 'required|unique:disciplinas',
             'carga_horaria'  => 'required',
         ]);
         DB::transaction(function () use($request) {
