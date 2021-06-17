@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li class="breadcrumb-item">Home</li>
     <li class="breadcrumb-item">Secretaria</li>
-    <li class="breadcrumb-item">Funcionario</li>
+    <li class="breadcrumb-item">Funcionário</li>
     <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('curso.index') }}">Editar</a></li>
 @endsection
 
@@ -30,7 +30,7 @@
                                     class="col-12  form-control @error('nome') is-invalid @enderror" id="nome"
                                     placeholder="Nome">
 
-                                  @error('nome')
+                                    @error('nome')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -366,23 +366,21 @@
                                     <select name="permissao" id="permissao" class="form-control  col-12">
                                         {{--  <option value="Cuiabá">Cuiabá</option>  --}}
 
-                                      @foreach ($funcionario_roles as $role)
-                                        <option value="{{$role->name}}">{{$role->name}}</option>
+                                        @foreach ($funcionario_roles as $role)
+                                            <option value="{{$role->name}}">{{$role->name}}</option>
                                         @endforeach
-                                      </select>
+                                    </select>
                             </div>
 
                             <div class="col-4">
                                 <label >Perfil</label>
                                      <select name="tipo_perfil_id" id="tipo_perfil_id" class="selectOtion form-control col-12">
                                         @foreach ($perfis as $tipo_perfil)
-                                        @if ($tipo_perfil->id == $funcionario_pessoa->tipo_perfil_id)
-                                           <option selected value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
-
-                                           @else
-                                           <option value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
-                                        @endif
-
+                                            @if ($tipo_perfil->id == $funcionario_pessoa->tipo_perfil_id)
+                                                <option selected value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
+                                            @else
+                                                <option value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
 

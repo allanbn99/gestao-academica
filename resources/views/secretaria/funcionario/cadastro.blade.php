@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li class="breadcrumb-item">Home</li>
     <li class="breadcrumb-item">Secretaria</li>
-    <li class="breadcrumb-item">Funcionario</li>
+    <li class="breadcrumb-item">Funcionário</li>
     <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('curso.index') }}">Cadastrar</a></li>
 @endsection
 
@@ -179,7 +179,20 @@
                         </div>
 
                         <div class="row mb-2">
-                            <div class="col-sm-12 col-md-9">
+                            <div class="col-sm-12 col-md-3">
+                                <label class="mb-0" for="cep">CEP</label>
+                                <input type="text" name="cep" value="{{ old('cep') }}"
+                                    class="form-control @error('cep') is-invalid @enderror" id="cep"
+                                    placeholder="CEP">
+                    
+                                @error('cep')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
                                 <label class="mb-0" for="rua">Rua</label>
                                 <input type="text" name="rua" value="{{ old('rua') }}"class="form-control @error('rua') is-invalid @enderror" id="rua" placeholder="Rua">
                     
@@ -246,7 +259,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-sm-12 col-md-4">
+                            <div class="col-sm-12 col-md-1">
                                 <label class="mb-0" for="estado">Estado</label>
                                 <input type="text" name="estado" value="{{ old('estado') }}"
                                     class="form-control @error('estado') is-invalid @enderror" id="estado"
@@ -259,7 +272,7 @@
                                 @enderror
                             </div>
                         
-                            <div class="col-sm-12 col-md-3">
+                            {{--<div class="col-sm-12 col-md-3">
                                 <label class="mb-0" for="cep">CEP</label>
                                 <input type="text" name="cep" value="{{ old('cep') }}"
                                     class="form-control @error('cep') is-invalid @enderror" id="cep"
@@ -270,7 +283,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div>--}}
                         </div>
                         {{--<div class="col-4">
                             <label class="mb-0" for="pais">Pais</label>
@@ -447,5 +460,25 @@
             //... and adds the "active" class on the current step:
             x[n].className += " active";
         }
+
+        document.getElementById('cep').addEventListener('blur', function(){
+            let cep = document.getElementById('cep').value.replace(/\D/g, '');
+            let url = 'https://viacep.com.br/ws/'+ cep +'/json/';
+            fetch(url).then(res => {
+                return res.json();
+            }).then(data => {
+                if(data.erro){
+                    document.getElementById('rua').value = '';
+                    document.getElementById('bairro').value = '';
+                    document.getElementById('cidade').value = '';
+                    document.getElementById('estado').value = '';
+                }else{
+                    document.getElementById('rua').value = data.logradouro;
+                    document.getElementById('bairro').value = data.bairro;
+                    document.getElementById('cidade').value = data.localidade;
+                    document.getElementById('estado').value = data.uf;
+                }
+            });
+        });
     </script>
 @endpush

@@ -4,7 +4,7 @@
 @section('breadcrumb')
     <li class="breadcrumb-item">Home</li>
     <li class="breadcrumb-item">Secretaria</li>
-    <li class="breadcrumb-item">Funcionario</li>
+    <li class="breadcrumb-item">Funcionário</li>
     <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('curso.index') }}">Editar</a></li>
 @endsection
 
