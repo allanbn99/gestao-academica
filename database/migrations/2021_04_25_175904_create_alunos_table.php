@@ -18,6 +18,7 @@ class CreateAlunosTable extends Migration
             $table->integer('matricula');
             $table->unsignedBigInteger('pessoa_id');
             $table->unsignedBigInteger('curso_id');
+           
 
             $table->foreign('pessoa_id')->references('id')->on('pessoas');
             $table->foreign('curso_id')->references('id')->on('cursos');

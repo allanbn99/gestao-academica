@@ -8,10 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Aluno extends Model
 {
     use HasFactory;
-
+    
+    public $timestamps = false;
+    
     protected $fillable = [
         'matricula',
         'pessoa_id',
         'curso_id',
+        
+        
     ];
+    
+    
 }
+

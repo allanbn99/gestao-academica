@@ -2,6 +2,8 @@
 
 use App\Models\funcionarios;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Aluno;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,8 @@ Route::prefix('secretaria')
     ->group(function() {
         Route::resource('curso', App\Http\Controllers\CursoController::class);
         Route::resource('funcionario', App\Http\Controllers\FuncionarioController::class);
-});
+        Route::resource('aluno', App\Http\Controllers\AlunoController::class);
+    });
 
 
 
