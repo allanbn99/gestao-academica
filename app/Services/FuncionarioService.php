@@ -28,18 +28,18 @@ class FuncionarioService
     {
         //Funcionando ok
         $request->validate([
-            'matricula'     =>'required',
+            'matricula'     => 'required|unique:funcionarios',
             'nome'          => 'required',
-            'cpf'           => 'required',
-            'rg'            => 'required',
+            'cpf'           => 'required|unique:pessoas',
+            'rg'            => 'required|unique:pessoas',
             'nome_pai'      => 'required',
             'nome_mae'      => 'required',
-            'telefone'      => 'required',
+            'telefone'      => 'required|unique:pessoas',
             'nacionalidade'         => 'required',
             'naturalidade'          => 'required',
-            'titulo_eleitor'        => 'required',
-            'reservista'            => 'required',
-            'carteira_trabalho'     => 'required',
+            'titulo_eleitor'        => 'required|unique:pessoas',
+            'reservista'            => 'required|unique:pessoas',
+            'carteira_trabalho'     => 'required|unique:pessoas',
             'rua'           => 'required',
             'numero'        => 'required',
             'bairro'        => 'required',
@@ -48,7 +48,7 @@ class FuncionarioService
             'estado'        => 'required',
             //'pais'          => 'required',
             'cep'           => 'required',
-            'email'         => 'required'
+            'email'         => 'required|unique:users'
         ]);
 
         DB::transaction(function() use($request) {
@@ -135,18 +135,18 @@ class FuncionarioService
     public function update(Request $request, $id)
     {
         $request->validate([
-            'matricula'     =>'required',
+            'matricula'     =>'required|unique:funcionarios',
             'nome'          => 'required',
-            'cpf'           => 'required',
-            'rg'            => 'required',
+            'cpf'           => 'required|unique:pessoas',
+            'rg'            => 'required|unique:pessoas',
             'nome_pai'      => 'required',
             'nome_mae'      => 'required',
-            'telefone'      => 'required',
+            'telefone'      => 'required|unique:pessoas',
             'nacionalidade' => 'required',
             'naturalidade'  => 'required',
-            'titulo_eleitor'    => 'required',
-            'reservista'        => 'required',
-            'carteira_trabalho' => 'required',
+            'titulo_eleitor'    => 'required|unique:pessoas',
+            'reservista'        => 'required|unique:pessoas',
+            'carteira_trabalho' => 'required|unique:pessoas',
             'rua'               => 'required',
             'numero'            => 'required',
             'bairro'        => 'required',
@@ -155,7 +155,7 @@ class FuncionarioService
             'estado'        => 'required',
             'pais'          => 'required',
             'cep'           => 'required',
-            'email'         => 'required',
+            'email'         => 'required|unique:users',
         ]);
 
         DB::transaction(function () use($request, $id) {

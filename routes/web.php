@@ -24,4 +24,5 @@ Route::group([
     Route::resource('curso', App\Http\Controllers\CursoController::class);
     Route::resource('funcionario', App\Http\Controllers\FuncionarioController::class);
     Route::resource('disciplina', App\Http\Controllers\DisciplinaController::class);
+    Route::resource('aluno', App\Http\Controllers\AlunoController::class);
 }); 

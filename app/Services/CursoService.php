@@ -49,7 +49,7 @@ class CursoService
     public function criar(Request $request)
     {
         $request->validate([
-            'nome_curso' => 'required',
+            'nome_curso' => 'required|unique:cursos',
             'semestres'  => 'required|numeric'
         ]);
         DB::transaction(function () use($request) {

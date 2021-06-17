@@ -15,8 +15,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/FormStep.css') }}" rel="stylesheet">
-    {{--<link href="/resources/css/app.css" rel="stylesheet">--}}
 
 </head>
 <body class="bg-light">
@@ -62,7 +60,10 @@
                                         <a href="{{ route('disciplina.index') }}">Disciplina</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('funcionario.index') }}">Funcionários</a>
+                                        <a href="{{ route('funcionario.index') }}">Funcionário</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('aluno.index') }}">Aluno</a>
                                     </li>
                                 </ul>
                             </li>
@@ -134,7 +135,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/FormStep.js') }}" defer></script>
     <script>
         //Troca de lado a seta do menu dropdown e mostra/não mostra o submenu
 		function toggleMenu(idElement, idIcon){
