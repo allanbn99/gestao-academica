@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+    <li class="breadcrumb-item" title="Página inicial"><a href="{{ route('home') }}">Home</a></li>
     <li class="breadcrumb-item">Secretaria</li>
-    <li class="breadcrumb-item active" aria-current="page">Disciplina</li>
+    <li class="breadcrumb-item active" aria-current="page" title="Página de disciplinas">Disciplina</li>
 @endsection
 
 @section('content')
 <div class="container-fluid">
-    <div class="card">
+    <div class="sky-box mb-2">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h1>Lista de Disciplinas</h1>
@@ -19,18 +19,10 @@
                 <div class="card-body">
                     <form method="GET" action="{{ route('disciplina.index') }}">
                         <div class="form-row">
-                            <div class="form-group col-md-9">
-                                <label for="search_disciplina">Nome da disciplina</label>
+                            <div class="form-group col-md-12">
+                                <label for="search_disciplina">Pesquisar por disciplina ou carga horária</label>
                                 <input type="text" name="disciplina" value="{{ request('disciplina') }}" class="form-control"
-                                    id="search_disciplina" placeholder="Pesquisar...">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="search_semestres">Carga horaria</label>
-                                <input type="text" name="semestres" value="{{ request('carga_horaria') }}"
-                                    class="form-control" id="search_semestres" placeholder="Pesquisar...">
-                            </div>
-                            <div class="col-md-1 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary mb-3">Pesquisar</button>
+                                id="search_input" placeholder="Disciplina tal ou 40, 50 e etc..." title="Barra de pesquisa, pesquise pela disciplina ou carga horária.">
                             </div>
                         </div>
                     </form>
@@ -46,7 +38,7 @@
                         <th scope="col" width="1">Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="result_table">
                     @forelse ($disciplinas as $disciplina)
                         <tr>
                             <th scope="row">{{ $disciplina->id }}</th>
@@ -81,28 +73,6 @@
     </div>
 </div>
 
-@include('components.modals.delete', ['route' => route('disciplina.destroy', 'delete-modal')])
-
-@error('error')
-    <div class="toast bg-danger position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-        <div class="toast-body text-white">
-            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ $message }}
-        </div>
-    </div>
-@enderror
-
-@if (session('success'))
-    <div class="toast bg-success position-absolute" style="top:15px;right:15px;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-        <div class="toast-body text-white">
-            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ session('success') }}
-        </div>
-    </div>
-@endif
+@include('components.modals.delete')
 
 @endsection

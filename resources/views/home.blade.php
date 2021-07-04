@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="sky-box">
         <div class="card-body">
-            {{ __('You are logged in!') }}
+            <h1>Gestão Acadêmica</h1>
         </div>
     </div>
 </div>
