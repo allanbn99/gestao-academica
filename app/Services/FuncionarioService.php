@@ -32,21 +32,18 @@ class FuncionarioService
             'nome'          => 'required',
             'cpf'           => 'required|unique:pessoas',
             'rg'            => 'required|unique:pessoas',
-            'nome_pai'      => 'required',
             'nome_mae'      => 'required',
-            'telefone'      => 'required|unique:pessoas',
+            'telefone'      => 'required',
             'nacionalidade'         => 'required',
             'naturalidade'          => 'required',
             'titulo_eleitor'        => 'required|unique:pessoas',
-            'reservista'            => 'required|unique:pessoas',
+            'reservista'            => 'unique:pessoas',
             'carteira_trabalho'     => 'required|unique:pessoas',
             'rua'           => 'required',
             'numero'        => 'required',
             'bairro'        => 'required',
-            //'complemento'   => 'required',
             'cidade'        => 'required',
             'estado'        => 'required',
-            //'pais'          => 'required',
             'cep'           => 'required',
             'email'         => 'required|unique:users'
         ]);
@@ -57,7 +54,7 @@ class FuncionarioService
                 'password' => Hash::make('default'),
                 'is_activated' => $request->is_activated == 'on' ? 1: 0,
             ])->assignRole($request->permissao);
-    
+
             $pessoa = Pessoa::create([
                 'nome'          => $request->nome,
                 'cpf'           => str_replace(['.', '-'], ['', ''], $request->cpf),
@@ -73,7 +70,7 @@ class FuncionarioService
                 'tipo_perfil_id'    => $request->tipo_perfil_id,
                 'user_id'           => $user->id,
             ]);
-            
+
             $endereco = Endereco::create([
                 'rua'       => $request->rua,
                 'numero'    => $request->numero,
@@ -84,12 +81,12 @@ class FuncionarioService
                 'pais'          => 'Brasil',
                 'cep'           => $request->cep,
             ]);
-    
+
             $pessoa_endereco = PessoaEndereco::create([
                 'pessoa_id'     => $pessoa->id,
                 'endereco_id'   => $endereco->id,
             ]);
-    
+
             $funcionario = Funcionario::create([
                 'pessoa_id' => $pessoa->id,
                 'matricula' => $request->matricula,
@@ -97,7 +94,7 @@ class FuncionarioService
                 'is_status' => 0
             ]);
         });
-        
+
         return redirect()->route('funcionario.index')->with('success', trans('validation.create-success'));
 
     }
@@ -108,7 +105,13 @@ class FuncionarioService
     |-------------------------------------------------------------------------------------------------------------------------------------
     */
     public function funcionarios(){
-        return Funcionario::with('pessoa', 'cargo')->paginate(10);
+        // return Funcionario::with('pessoa')->paginate(10);
+        return DB::table('funcionarios')
+            ->join('pessoas', 'pessoas.id', '=', 'funcionarios.pessoa_id')
+            ->join('model_has_roles', 'model_has_roles.model_id', '=', 'pessoas.user_id')
+            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->select('funcionarios.id', 'pessoas.nome AS nome', 'roles.name AS perfil')
+            ->paginate(10);
     }
 
     /*

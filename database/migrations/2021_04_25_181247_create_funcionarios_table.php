@@ -17,7 +17,7 @@ class CreateFuncionariosTable extends Migration
             $table->id();
             $table->integer('matricula');
             $table->unsignedBigInteger('pessoa_id');
-            $table->unsignedBigInteger('cargo_id');
+            $table->unsignedBigInteger('cargo_id')->nullable();
             $table->boolean('is_status');
 
             $table->foreign('pessoa_id')->references('id')->on('pessoas');

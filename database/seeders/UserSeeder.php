@@ -44,7 +44,8 @@ class UserSeeder extends Seeder
 
         User::create([
             'email'        => 'allan.nascimento@mt.estudante.senai.br',
-            'password'     => Hash::make('default'),
+            'password'     => Hash::make(self::PASSWORD),
+            'is_activated' => 1,
         ])->assignRole('TecnicoAdministrativo');
     }
 }

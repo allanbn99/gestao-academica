@@ -3,7 +3,8 @@
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
     <li class="breadcrumb-item">Secretaria</li>
-    <li class="breadcrumb-item active" aria-current="page">Disciplina</li>
+    <li class="breadcrumb-item"><a href="{{ route('disciplina.index') }}">Disciplina</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Cadastrar</li>
 @endsection
 
 @section('content')
@@ -12,6 +13,10 @@
             <form class="mt-2" action="{{ route('disciplina.store') }}" method="POST">
                 @csrf
                 <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1>Cadastrar Disciplina</h1>
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNomeDisciplina">Nome da Disciplina</label>

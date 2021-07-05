@@ -48,7 +48,7 @@
                                 <input type="text" name="telefone" value="{{ old('telefone') }}"
                                     class="form-control @error('telefone') is-invalid @enderror" id="telefone"
                                     placeholder="Telefone">
-                    
+
                                 @error('telefone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -61,13 +61,13 @@
                                 });
                             </script>
                         </div>
-                        
+
                         <div class="row mb-2">
 
                             <div class="col-sm-12 col-md-6">
                                 <label class="mb-0" for="nome_pai">Nome do Pai</label>
                                 <input type="text" name="nome_pai" value="{{ old('nome_pai') }}"class="form-control @error('nome_pai') is-invalid @enderror" id="nome_pai" placeholder="Nome do Pai">
-                        
+
                                 @error('nome_pai')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -78,7 +78,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <label class="mb-0" for="nome_mae">Nome da Mãe</label>
                                 <input type="text" name="nome_mae" value="{{ old('nome_mae') }}" class="form-control @error('nome_mae') is-invalid @enderror" id="nome_mae" placeholder="Nome da Mãe">
-                    
+
                                 @error('nome_mae')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -87,7 +87,7 @@
                             </div>
 
                         </div>
-                        
+
                         <div class="row mb-2">
                             <div class="col-sm-12 col-md-4">
                                 <label class="mb-0" for="cpf">CPF</label>
@@ -103,7 +103,7 @@
                             <div class="col-sm-12 col-md-4">
                                 <label class="mb-0" for="rg">RG</label>
                                 <input type="text" name="rg" value="{{ old('cpf') }}" class="form-control @error('cpf') is-invalid @enderror" id="rg" placeholder="RG">
-                    
+
                                 @error('rg')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -114,7 +114,7 @@
                             <div class="col-sm-12 col-md-4">
                                 <label class="mb-0" for="titulo_eleitor">Titulo de eleitor</label>
                                 <input type="text" name="titulo_eleitor" value="{{ old('titulo_eleitor') }}" class="form-control @error('titulo_eleitor') is-invalid @enderror" id="titulo_eleitor" placeholder="Titulo de Eleitor">
-                    
+
                                 @error('titulo_eleito')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -122,12 +122,12 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="row mb-2">
                             <div class="col-sm-12 col-md-4">
                                 <label class="mb-0" for="reservista">Reservista</label>
                                 <input type="text" name="reservista" value="{{ old('reservista') }}" class="col-12 form-control @error('reservista') is-invalid @enderror" id="reservista" placeholder="Reservista">
-                    
+
                                 @error('reservista')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -138,7 +138,7 @@
                             <div class="col-sm-12 col-md-4">
                                 <label class="mb-0" for="carteira_trabalho">Carteira de Trabalho</label>
                                 <input type="text" name="carteira_trabalho" value="{{ old('carteira_trabalho') }}"class="col-12 form-control @error('carteira_trabalho') is-invalid @enderror" id="carteira_trabalho" placeholder="Carteira">
-                    
+
                                 @error('carteira_trabalho')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -146,12 +146,12 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="row mb-2">
                             <div class="col-sm-12 col-md-4">
                                 <label class="mb-0" for="nacionalidade">Nacionalidade</label>
                                 <input type="text" name="nacionalidade" value="{{ old('nacionalidade') }}" class="form-control @error('nacionalidade') is-invalid @enderror" id="nacionalidade" placeholder="Nacionalidade">
-                    
+
                                 @error('nacionalidade')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -162,7 +162,7 @@
                             <div class="col-sm-12 col-md-4">
                                 <label class="mb-0" for="naturalidade">Naturalidade</label>
                                 <input type="text" name="naturalidade" value="{{ old('naturalidade') }}" class="form-control @error('naturalidade') is-invalid @enderror" id="naturalidade" placeholder="Naturalidade">
-                
+
                                 @error('naturalidade')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -184,7 +184,7 @@
                                 <input type="text" name="cep" value="{{ old('cep') }}"
                                     class="form-control @error('cep') is-invalid @enderror" id="cep"
                                     placeholder="CEP">
-                    
+
                                 @error('cep')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -195,7 +195,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <label class="mb-0" for="rua">Rua</label>
                                 <input type="text" name="rua" value="{{ old('rua') }}"class="form-control @error('rua') is-invalid @enderror" id="rua" placeholder="Rua">
-                    
+
                                 @error('rua')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -208,7 +208,7 @@
                                 <input type="text" name="numero" value="{{ old('numero') }}"
                                     class="form-control @error('numero') is-invalid @enderror" id="numero"
                                     placeholder="Número">
-                    
+
                                 @error('numero')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -223,7 +223,7 @@
                                 <input type="text" name="bairro" value="{{ old('bairro') }}"
                                     class="form-control @error('bairro') is-invalid @enderror" id="bairro"
                                     placeholder="Bairro">
-                    
+
                                 @error('bairro')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -236,7 +236,7 @@
                                 <input type="text" name="complemento" value="{{ old('complemento') }}"
                                     class="form-control @error('semestres') is-invalid @enderror" id="complemento"
                                     placeholder="Complemento">
-                    
+
                                 @error('complemento')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -251,7 +251,7 @@
                                 <input type="text" name="cidade" value="{{ old('cidade') }}"
                                     class="form-control @error('cidade') is-invalid @enderror" id="cidade"
                                     placeholder="Cidade">
-                    
+
                                 @error('cidade')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -264,20 +264,20 @@
                                 <input type="text" name="estado" value="{{ old('estado') }}"
                                     class="form-control @error('estado') is-invalid @enderror" id="estado"
                                     placeholder="Estado">
-                    
+
                                 @error('estado')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        
+
                             {{--<div class="col-sm-12 col-md-3">
                                 <label class="mb-0" for="cep">CEP</label>
                                 <input type="text" name="cep" value="{{ old('cep') }}"
                                     class="form-control @error('cep') is-invalid @enderror" id="cep"
                                     placeholder="CEP">
-                    
+
                                 @error('cep')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -290,7 +290,7 @@
                             <input type="text" name="pais" value="{{ old('pais') }}"
                                 class="form-control @error('pais') is-invalid @enderror" id="pais"
                                 placeholder="Pais">
-                
+
                             @error('pais')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -311,7 +311,7 @@
                                 <input type="text" name="email" value="{{ old('email') }}"
                                     class="form-control @error('email') is-invalid @enderror" id="email"
                                     placeholder="E-mail">
-                        
+
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -319,43 +319,13 @@
                                 @enderror
                             </div>
 
-                            <div class="col-sm-12 col-md-4">
-                                <label class="mb-0" for="cargo">Vinculo Empregaticio</label>
-                                <select name="cargo_id" id="cargo" class="form-control">
-                                    @foreach ($cargos as $cargo)
-                                        <option value="{{$cargo->id}}">{{$cargo->nome_cargo}}</option>
-                                    @endforeach
-                                </select>
-                
-                                @error('funcao')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
                             <div class="col-sm-12 col-md-3">
-                                <label class="mb-0" for="permissao">Tipo Permissão</label>
+                                <label class="mb-0" for="permissao">Perfil</label>
                                 <select name="permissao" id="permissao" class="form-control">
                                     @foreach ($roles as $role)
                                         <option value="{{$role->name}}">{{$role->name}}</option>
                                     @endforeach
                                 </select>
-                            </div>
-
-                            <div class="col-sm-12 col-md-3">
-                                <label class="mb-0" for="tipo_perfil_id">Perfil</label>
-                                <select name="tipo_perfil_id" id="tipo_perfil_id" class="selectOtion form-control">
-                                    @foreach ($tipo_perfils as $tipo_perfil)
-                                        <option value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
-                                    @endforeach
-                                </select>
-                
-                                 @error('tipo_perfil_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
 
                             <div class="col-sm-12 col-md-2">

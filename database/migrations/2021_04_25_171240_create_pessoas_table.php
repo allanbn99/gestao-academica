@@ -19,15 +19,15 @@ class CreatePessoasTable extends Migration
             $table->string('nome', 100);
             $table->char('cpf', 11);
             $table->string('rg', 20);
-            $table->string('nome_pai', 100);
+            $table->string('nome_pai', 100)->nullable();
             $table->string('nome_mae', 100);
             $table->string('telefone', 20);
             $table->string('nacionalidade', 45);
             $table->string('naturalidade', 45);
             $table->string('titulo_eleitor', 20);
-            $table->string('reservista', 20);
-            $table->string('carteira_trabalho', 20);
-            $table->unsignedBigInteger('tipo_perfil_id');
+            $table->string('reservista', 20)->nullable();
+            $table->string('carteira_trabalho', 20)->nullable();
+            $table->unsignedBigInteger('tipo_perfil_id')->nullable();
             $table->unsignedBigInteger('user_id');
 
             $table->foreign('tipo_perfil_id')->references('id')->on('tipo_perfils');

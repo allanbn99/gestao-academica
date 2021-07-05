@@ -35,7 +35,7 @@
                     <tr>
                         <th scope="col" width="1">#</th>
                         <th scope="col">Nome</th>
-                        <th scope="col" width="1">Função</th>
+                        <th scope="col" width="1">Perfil</th>
                         <th scope="col" width="1">Ações</th>
                     </tr>
                 </thead>
@@ -44,8 +44,8 @@
 
                         <tr>
                             <th scope="row">{{ $funcionario->id }}</th>
-                            <td>{{ $funcionario->pessoa->nome }}</td>
-                            <td>{{ $funcionario->cargo->nome_cargo }}</td>
+                            <td>{{ $funcionario->nome }}</td>
+                            <td>{{ $funcionario->perfil }}</td>
 
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
@@ -70,11 +70,11 @@
             </div>
         </div>
     </div>
-    
+
     <div class="d-flex justify-content-center align-items-center mt-2">
         {{ $funcionarios->render() }}
     </div>
-    
+
 </div>
 
 @include('components.modals.delete')

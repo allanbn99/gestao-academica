@@ -36,15 +36,15 @@
                         </div>
                         <div class="ml-1 d-flex align-items-center">
                             <div>
-                                {{ Auth::user()->pessoa->nome }}<br>
+                                {{ Auth::user()->homeInformation()->nome }}<br>
                                 <small class="text-muted">
-                                    {{ Auth::user()->pessoa->tipoPerfil->nome_perfil }}
+                                    {{ Auth::user()->homeInformation()->perfil }}
                                 </small>
                             </div>
                         </div>
                     </div>
                 </a>
-                
+
                 <nav class="sky-navigator">
                     <ul class="sky-navbar-vertical-drop">
                         @role('TecnicoAdministrativo')

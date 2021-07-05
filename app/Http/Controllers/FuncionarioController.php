@@ -92,7 +92,7 @@ class FuncionarioController extends Controller
         return $this->funcionarioService->visualizar($id, 'secretaria.funcionario.Editar');
     }
 
-    
+
     /*
     |--------------------------------------------------------------------------
     |   Atualiza um funcionário.
@@ -102,8 +102,8 @@ class FuncionarioController extends Controller
     {
         return $this->funcionarioService->update($request, $id);
     }
-    
-    
+
+
     /*
     |--------------------------------------------------------------------------
     |   Deleta um funcionário.
