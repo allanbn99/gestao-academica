@@ -330,18 +330,6 @@
                             <h1 class="m-1">Tipo de Perfil</h1>
                         </div>
                         <div class="col-12 row">
-                            <div class="col-4">
-                                    <label >Vinculo Empregaticio</label>
-                                    <select disabled name="cargo_id" id="cargo" class="form-control col-12">
-                                        <option selected value="{{ $funcionario->cargo->id }}">{{ $funcionario->cargo->nome_cargo }}</option>
-                                    </select>
-
-                                @error('funcao')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                           </div>
 
 
                     {{-- //email --}}
@@ -349,7 +337,7 @@
                         <label >Email</label>
                                 <input disabled      type="text" name="email" value="{{$funcionario_usuarios->email}}"
                                 class="col-12    form-control @error('email') is-invalid @enderror" id="inputSemestres"
-                                placeholder="CEP">
+                                placeholder="Email">
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -359,9 +347,9 @@
 
                             <div class="col-4">
                                 <label >Perfil</label>
-                                <select disabled name="tipo_perfil_id" id="tipo_perfil_id" class="selectOtion form-control col-12">
-                                    <option selected value="{{ $funcionario_tipo_perfis->id }}">{{ $funcionario_tipo_perfis->nome_perfil }}</option>
-                                </select>
+                                <input disabled      type="text" name="email" value="{{$perfil->name}}"
+                                class="col-12    form-control @error('email') is-invalid @enderror" id="inputSemestres"
+                                placeholder="Email">
                             </div>
 
                             <div class="col-4">
