@@ -329,25 +329,6 @@
                             <h1 class="m-1">Tipo de Perfil</h1>
                         </div>
                         <div class="col-12 row">
-                            <div class="col-4">
-                                    <label >Vinculo Empregaticio</label>
-                                    <select  name="cargo_id" id="cargo" class="form-control col-12">
-                                        @foreach ($cargos as $cargo)
-                                            @if ($funcionario->cargo_id ==  $cargo->id)
-                                                <option value="{{$cargo->id}}">{{$cargo->nome_cargo}}</option>
-                                            @else
-                                                <option value="{{$cargo->id}}">{{$cargo->nome_cargo}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-
-                                @error('funcao')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                           </div>
-
 
                     {{-- //email --}}
                     <div class="col-4">
@@ -361,25 +342,15 @@
                                 </span>
                             @enderror
                      </div>
-                            <div class="col-4">
-                                    <label >Tipo Permissão</label>
-                                    <select name="permissao" id="permissao" class="form-control  col-12">
-                                        {{--  <option value="Cuiabá">Cuiabá</option>  --}}
-
-                                        @foreach ($funcionario_roles as $role)
-                                            <option value="{{$role->name}}">{{$role->name}}</option>
-                                        @endforeach
-                                    </select>
-                            </div>
 
                             <div class="col-4">
                                 <label >Perfil</label>
                                      <select name="tipo_perfil_id" id="tipo_perfil_id" class="selectOtion form-control col-12">
                                         @foreach ($perfis as $tipo_perfil)
-                                            @if ($tipo_perfil->id == $funcionario_pessoa->tipo_perfil_id)
-                                                <option selected value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
+                                            @if ($tipo_perfil->id == $perfil->id)
+                                                <option selected value="{{$tipo_perfil->id}}">{{$tipo_perfil->name}}</option>
                                             @else
-                                                <option value="{{$tipo_perfil->id}}">{{$tipo_perfil->nome_perfil}}</option>
+                                                <option value="{{$tipo_perfil->id}}">{{$tipo_perfil->name}}</option>
                                             @endif
                                         @endforeach
                                     </select>
