@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\{Endereco, Pessoa, User, PessoaEndereco, Funcionario, Cargo, TipoPerfil};
+use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -105,7 +106,6 @@ class FuncionarioService
     |-------------------------------------------------------------------------------------------------------------------------------------
     */
     public function funcionarios(){
-        // return Funcionario::with('pessoa')->paginate(10);
         return DB::table('funcionarios')
             ->join('pessoas', 'pessoas.id', '=', 'funcionarios.pessoa_id')
             ->join('model_has_roles', 'model_has_roles.model_id', '=', 'pessoas.user_id')
@@ -138,18 +138,15 @@ class FuncionarioService
     public function update(Request $request, $id)
     {
         $request->validate([
-            'matricula'     =>'required|unique:funcionarios',
+            'matricula'     =>'required',
             'nome'          => 'required',
-            'cpf'           => 'required|unique:pessoas',
-            'rg'            => 'required|unique:pessoas',
-            'nome_pai'      => 'required',
+            'cpf'           => 'required',
+            'rg'            => 'required',
             'nome_mae'      => 'required',
-            'telefone'      => 'required|unique:pessoas',
+            'telefone'      => 'required',
             'nacionalidade' => 'required',
             'naturalidade'  => 'required',
-            'titulo_eleitor'    => 'required|unique:pessoas',
-            'reservista'        => 'required|unique:pessoas',
-            'carteira_trabalho' => 'required|unique:pessoas',
+            'carteira_trabalho' => 'required',
             'rua'               => 'required',
             'numero'            => 'required',
             'bairro'        => 'required',
@@ -158,7 +155,7 @@ class FuncionarioService
             'estado'        => 'required',
             'pais'          => 'required',
             'cep'           => 'required',
-            'email'         => 'required|unique:users',
+            'email'         => 'required',
         ]);
 
         DB::transaction(function () use($request, $id) {
@@ -176,7 +173,6 @@ class FuncionarioService
                 'titulo_eleitor'    => $request->titulo_eleitor,
                 'reservista'        => $request->reservista,
                 'carteira_trabalho' => $request->carteira_trabalho,
-                'tipo_perfil_id'    => $request->tipo_perfil_id,
             ]);
 
             $pessoa = Pessoa::find($id);
@@ -213,19 +209,25 @@ class FuncionarioService
         if(Funcionario::find($id) == null){
             return redirect()->route('funcionario.index')->withErrors(['error' => 'Funcionário(a) não encontrado.']);
         }
+
         $funcionario = Funcionario::where('id', $id)->with('pessoa', 'pessoa.user', 'pessoa.tipoPerfil', 'pessoa.endereco.endereco', 'cargo')->get();
-        $funcionario_roles = DB::table('roles')->get();
+
+        $funcionario_perfil = DB::table('roles')
+                                ->join('model_has_roles', 'model_has_roles.role_id', '=', 'roles.id')
+                                ->where('model_has_roles.model_id', '=', Auth::user()->id)
+                                ->select('roles.id', 'roles.name')
+                                ->get()[0];
+
+        $perfis = DB::table('roles')->where('name', '!=', 'Aluno')->get();
+
         return view($view, [
             'pessoas_enderecos' => $funcionario[0]->pessoa->endereco,
             'funcionario_pessoa' => $funcionario[0]->pessoa,
             'funcionario' => $funcionario[0],
             'funcionario_enderecos' => $funcionario[0]->pessoa->endereco->endereco,
             'funcionario_usuarios' => $funcionario[0]->pessoa->user,
-            'funcionario_Cargos' => $funcionario[0]->cargo,
-            'funcionario_roles' => $funcionario_roles,
-            'funcionario_tipo_perfis' => $funcionario[0]->pessoa->tipoPerfil,
-            'cargos' => Cargo::get(),
-            'perfis' => TipoPerfil::get()
+            'perfil' => $funcionario_perfil,
+            'perfis' => $perfis,
         ]);
     }
 }
