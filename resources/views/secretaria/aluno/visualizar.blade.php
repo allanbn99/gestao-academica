@@ -19,7 +19,7 @@
                 <form class="mt-2" {{ route('aluno.update', $aluno_pessoa->id) }}>
 
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-12">
                             <label for="inputNomeAluno">Nome do Aluno</label>
                             <input disabled type="text" name="nome" value="{{ $aluno_pessoa->nome }}"
                                 class="form-control @error('nome') is-invalid @enderror" id="nome" placeholder="Nome">
@@ -29,7 +29,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-2">
+
+                        <div class="form-group col-sm-12 col-md-4">
                             <label for="inputMatricula">Matricula</label>
                             <input disabled type="text" name="matricula" value="{{ $aluno->matricula }}"
                                 class="form-control @error('matricula') is-invalid @enderror" id="matricula"
@@ -41,14 +42,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputCurso">Curso</label>
-                            <select disabled name="Curso" id="curso_id" class="form-control">
-                                <option value="{{ $aluno_Cursos->id }}">{{ $aluno_Cursos->nome_curso }}</option>
-                            </select>
-                        </div>
 
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-sm-12 col-md-4">
                             <label for="inputCpf">CPF</label>
                             <input disabled type="text" name="cpf" value="{{ $aluno_pessoa->cpf }}"
                                 class="form-control @error('cpf') is-invalid @enderror" id="cpf" placeholder="CPF">
@@ -58,7 +53,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-2">
+
+                        <div class="form-group col-sm-12 col-md-4">
                             <label for="inputRg">RG</label>
                             <input disabled type="text" name="rg" value="{{ $aluno_pessoa->rg }}"
                                 class="form-control @error('cpf') is-invalid @enderror" id="rg" placeholder="RG">
@@ -68,7 +64,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
+
+                        <div class="form-group col-sm-12 col-md-6">
                             <label for="inputNomePai">Nome do Pai</label>
                             <input disabled type="text" name="nome_pai" value="{{ $aluno_pessoa->nome_pai }}"
                                 class="form-control @error('nome_pai') is-invalid @enderror" id="nome_pai"
@@ -79,7 +76,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
+
+                        <div class="form-group col-sm-12 col-md-6">
                             <label for="inputNomeMae">Nome do Mãe</label>
                             <input disabled type="text" name="nome_mae" value="{{ $aluno_pessoa->nome_mae }}"
                                 class="form-control @error('nome_mae') is-invalid @enderror" id="nome_mae"
@@ -90,7 +88,15 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
+
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label for="inputCurso">Curso</label>
+                            <select disabled name="Curso" id="curso_id" class="form-control">
+                                <option value="{{ $aluno_Cursos->id }}">{{ $aluno_Cursos->nome_curso }}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-3">
                             <label for="inputTelefone">Telefone</label>
                             <input disabled type="text" name="telefone" value="{{ $aluno_pessoa->telefone }}"
                                 class="form-control @error('telefone') is-invalid @enderror" id="telefone"
@@ -101,7 +107,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
+
+                        <div class="form-group col-sm-12 col-md-3">
                             <label for="inputNacionalidade">Nacionalidade</label>
                             <input disabled type="text" name="nacionalidade"
                                 value="{{ $aluno_pessoa->nacionalidade }}"
@@ -113,7 +120,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
+
+                        <div class="form-group col-sm-12 col-md-4">
                             <label for="inputNaturalidade">Naturalidade</label>
                             <input disabled type="text" name="naturalidade" value="{{ $aluno_pessoa->naturalidade }}"
                                 class="form-control @error('naturalidade') is-invalid @enderror" id="naturalidade"
@@ -124,7 +132,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
+
+                        <div class="form-group col-sm-12 col-md-4">
                             <label for="inputTituloEleitor">Titulo de Eleitor</label>
                             <input disabled type="text" name="titulo_eleitor"
                                 value="{{ $aluno_pessoa->titulo_eleitor }}"
@@ -136,7 +145,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
+
+                        <div class="form-group col-sm-12 col-md-4">
                             <label for="inputReservista">Reservista</label>
                             <input disabled type="text" name="reservista" value="{{ $aluno_pessoa->reservista }}"
                                 class="form-control @error('reservista') is-invalid @enderror" id="reservista"
@@ -147,51 +157,10 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputCarteira_Trabalho">Carteira de Trabalho</label>
-                            <input disabled type="text" name="carteira_trabalho"
-                                value="{{ $aluno_pessoa->carteira_trabalho }}"
-                                class="form-control @error('carteira_trabalho') is-invalid @enderror" id="carteira_trabalho"
-                                placeholder="Carteira">
-                            @error('carteira_trabalho')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label for="inputPerfil">Permissão</label>
-                            <select disabled name="permissao" id="permissao" class="form-control">
-                                <option value="{{ $aluno_roles->name }}">{{ $aluno_roles->name }}</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputVinculoEmpregaticio">Vinculo Empregaticio</label>
-                            <input disabled type="text" name="vinculo"
-                                class="col-12 form-control @error('vinculo_empregaticio') is-invalid @enderror"
-                                id="vinculo_empregraticio" placeholder="Não Possui">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputVinculoEmpregaticio">Perfil</label>
-                            <select disabled name="tipo_perfil_id" id="tipo_perfil_id"
-                                class="selectOtion form-control col-12">
-                                <option selected value="{{ $aluno_tipo_perfis->id }}">
-                                    {{ $aluno_tipo_perfis->nome_perfil }}
-                                </option>
-                            </select>
-                            @error('tipo_perfil_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-sm-12 col-md-10">
                             <label for="inputEmail">Email</label>
                             <input disabled type="text" name="email" value="{{ $aluno_usuarios->email }}"
                                 class="form-control @error('email') is-invalid @enderror" id="inputSemestres"
@@ -202,7 +171,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-2">
+                        
+                        <div class="col-sm-12 col-md-2">
                             <label class="col-12">Ativo</label>
                             @if ($aluno_usuarios->is_activated == 1)
                                 <label class="switch ">
