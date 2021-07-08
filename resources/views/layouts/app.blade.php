@@ -36,9 +36,9 @@
                         </div>
                         <div class="ml-1 d-flex align-items-center">
                             <div>
-                                {{ Auth::user()->homeInformation()->nome }}<br>
+                                {{ Auth::user()->pessoa->nome }}<br>
                                 <small class="text-muted">
-                                    {{ Auth::user()->homeInformation()->perfil }}
+                                    {{ Auth::user()->roles[0]->name }}
                                 </small>
                             </div>
                         </div>

@@ -17,10 +17,10 @@ class RolePermissionSeeder extends Seeder
     public function run()
     {
         /* ROLES */
-        $tecnicoAdministrativo = Role::create(['name' => 'TecnicoAdministrativo']);
-        $coordenador           = Role::create(['name' => 'Coordenador']);
-        $professor             = Role::create(['name' => 'Professor']);
-        $aluno                 = Role::create(['name' => 'Aluno']);
+        $tecnicoAdministrativo = Role::create(['name' => 'TecnicoAdministrativo', 'apelido' => 'Técnico Administrativo']);
+        $coordenador           = Role::create(['name' => 'Coordenador', 'apelido' => 'Coordenador']);
+        $professor             = Role::create(['name' => 'Professor', 'apelido' => 'Professor']);
+        $aluno                 = Role::create(['name' => 'Aluno', 'apelido' => 'Aluno']);
 
         /* PERMISSIONS */
         //Home

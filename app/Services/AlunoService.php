@@ -106,16 +106,15 @@ class AlunoService
             'naturalidade'=>'required',
             'titulo_eleitor'=>'required|numeric|unique:pessoas',
             'reservista'=>'required|numeric|unique:pessoas',
-            'carteira_trabalho'=>'required|numeric|unique:pessoas',
             'email'=>'required|unique:users',
         ]);
 
         DB::transaction(function () use($request) {
             $user = User::create([
                 'email' => $request->email,
-                'password' => Hash::make('default'),
+                'password' => Hash::make($request->senha),
                 'is_activated' => $request->is_activated == 'on' ? 1: 0,
-            ])->assignRole($request->permissao);
+            ])->assignRole('Aluno');
 
             $pessoa = Pessoa::create([
                 'nome' => $request->nome,
@@ -128,8 +127,6 @@ class AlunoService
                 'naturalidade' => $request->naturalidade,
                 'titulo_eleitor' => $request->titulo_eleitor,
                 'reservista' => $request->reservista,
-                'carteira_trabalho' => $request->carteira_trabalho,
-                'tipo_perfil_id' => $request->tipo_perfil_id,
                 'user_id' => $user->id,
             ]);
 
@@ -161,7 +158,6 @@ class AlunoService
             'naturalidade' => 'required',
             'titulo_eleitor' => 'required',
             'reservista' => 'required',
-            'carteira_trabalho' => 'required',
             'email' => 'required|email',
         ]);
 
@@ -179,18 +175,15 @@ class AlunoService
                 'titulo_eleitor' => $request->titulo_eleitor,
                 'reservista' => $request->reservista,
                 'carteira_trabalho' => $request->carteira_trabalho,
-                'tipo_perfil_id' => $request->tipo_perfil_id,
             ]);
 
             $pessoa = Pessoa::find($id);
 
             User::where('id', $pessoa->user_id)->update([
                 'email' => $request->email,
-                'password' => Hash::make('default'),
+                'password' => $request->is_activated == 'on' ? Hash::make('default'): Pessoa::find($id)->user->password,
                 'is_activated' => $request->is_activated == 'on' ? 1: 0,
             ]);
-            $user = User::find($pessoa->user_id);
-            $user->assignRole($request->permissao);
         });
         return redirect()->route('aluno.index')->with('success', trans('validation.update-success'));
     }
@@ -205,7 +198,6 @@ class AlunoService
     {   
         if(null === $this->aluno->find($id)) {
             throw new \InvalidArgumentException("Não foi possível apagar este registro");
-
         }
         $this->aluno->find($id)->delete();
     }
